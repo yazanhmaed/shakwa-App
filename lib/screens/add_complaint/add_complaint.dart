@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -55,9 +56,13 @@ class AddComplaint extends StatelessWidget {
         builder: (context, state) {
           AddComplaintCubit cubit = AddComplaintCubit.get(context);
           var key = GlobalKey<FormState>();
+          FirebaseMessaging.instance.getToken().then((value) {
+            cubit.token=value!;
+      print(value);
+    });
 
           return Scaffold(
-            //     backgroundColor: ColorManager.secondary,
+           
             appBar: AppBar(
               title: Text(title),
             ),
@@ -104,7 +109,7 @@ class AddComplaint extends StatelessWidget {
                                             'Select Item',
                                             style: TextStyle(
                                               fontSize: 20,
-                                              //fontWeight: FontWeight.bold,
+                                            
                                               color: Colors.white,
                                             ),
                                             overflow: TextOverflow.ellipsis,
@@ -119,7 +124,7 @@ class AddComplaint extends StatelessWidget {
                                                 item,
                                                 style: const TextStyle(
                                                   fontSize: 14,
-                                                  // fontWeight: FontWeight.bold,
+                                                  
                                                   color: Colors.white,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
@@ -207,8 +212,7 @@ class AddComplaint extends StatelessWidget {
                                           Size(double.infinity, 50))),
                                   onPressed: () {
                                     cubit.getGeo();
-                                    ////  print(cubit.position!.latitude);
-                                    // print(cubit.position!.longitude);
+                                    
                                   },
                                   child: Row(
                                     mainAxisAlignment:
@@ -235,7 +239,7 @@ class AddComplaint extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                // keyboardType: TextInputType.multiline,
+                                
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: ColorManager.primary,
@@ -272,6 +276,7 @@ class AddComplaint extends StatelessWidget {
                                   if (key.currentState!.validate()) {
                                     try {
                                       cubit.addComplaint(
+                                        token: cubit.token,
                                           userid: userid,
                                           authority: data,
                                           type: cubit.selectedValue!,

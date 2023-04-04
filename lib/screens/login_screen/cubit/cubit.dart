@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pro_test/screens/login_screen/cubit/states.dart';
 
 import '../../../models/user_model.dart';
-import '../../../resources/components.dart';
 
 class UserCubit extends Cubit<UserStates> {
   UserCubit() : super(UserInitialState());
@@ -17,6 +16,7 @@ class UserCubit extends Cubit<UserStates> {
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var token = '';
   userLogin({
     required String email,
     required String password,
@@ -36,6 +36,7 @@ class UserCubit extends Cubit<UserStates> {
     required String name,
     required String email,
     required String password,
+    required String token,
   }) {
     emit(AddUserLoadingState());
     FirebaseAuth.instance
@@ -47,6 +48,7 @@ class UserCubit extends Cubit<UserStates> {
         uId: value.user!.uid,
         name: name,
         email: email,
+        token: token,
       );
       emit(AddUserSuccessState());
     }).catchError((onError) {
@@ -59,11 +61,13 @@ class UserCubit extends Cubit<UserStates> {
     required String uId,
     required String name,
     required String email,
+    required String token,
   }) {
     UserModel userModel = UserModel(
       name: name,
       uId: uId,
       email: email,
+      token: token,
     );
     emit(AddCreateUserLoadingState());
     FirebaseFirestore.instance
@@ -104,9 +108,11 @@ class UserCubit extends Cubit<UserStates> {
 
     await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
       userCreate(
-          uId: value.user!.uid,
-          email: value.user!.email!,
-          name: value.user!.displayName!);
+        uId: value.user!.uid,
+        email: value.user!.email!,
+        name: value.user!.displayName!,
+        token: token,
+      );
 
       emit(UserSuccessState(value.user!.uid));
     }).catchError((onError) {

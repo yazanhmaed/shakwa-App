@@ -9,6 +9,7 @@ class AddComplaintModel {
   String? latitude;
   String? longitude;
   String? state;
+  String? token;
   int? color;
   Timestamp? date;
   AddComplaintModel({
@@ -20,6 +21,7 @@ class AddComplaintModel {
     this.latitude,
     this.longitude,
     this.state,
+    this.token,
     this.color,
     this.date,
   });
@@ -33,6 +35,7 @@ class AddComplaintModel {
     latitude = json['latitude'];
     longitude = json['longitude'];
     state = json['state'];
+    token = json['token'];
     color = json['color'];
     date = json['date'];
   }
@@ -47,6 +50,7 @@ class AddComplaintModel {
       'latitude': latitude,
       'longitude': longitude,
       'state': state,
+      'token': token,
       'color': color,
       'date': date,
     };

@@ -1,19 +1,6 @@
-// ignore: unused_local_variable
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pro_test/screens/antiCyber/add_antiCyber.dart';
-import 'package:pro_test/screens/home_screen/home_screen.dart';
 
-List<IconData> icon = [
-  FontAwesomeIcons.businessTime,
-  FontAwesomeIcons.businessTime,
-  FontAwesomeIcons.businessTime,
-  FontAwesomeIcons.businessTime,
-  FontAwesomeIcons.businessTime,
-  FontAwesomeIcons.businessTime,
-  FontAwesomeIcons.businessTime,
-  FontAwesomeIcons.businessTime,
-];
+
+
 
 List<String> images = [
   'assets/images/antiCyberCrimesUnit.png',
@@ -38,7 +25,7 @@ List<String> name = [
 ];
 List<String> email = [
   'cyber.crimes@psd.gov.jo'
-      'info@ammancity.gov.jo',
+  'info@ammancity.gov.jo',
   'complaints@jepco.com.jo',
   'agri@moa.gov.jo',
   'www.moict.gov.jo',
@@ -77,32 +64,12 @@ List<String> nameData = [
   'TrafficDepartment',
 ];
 
-// ignore: unused_local_variable
-List<Widget> screens = [
-  const HomeScreen(),
-  const HomeScreen(),
-  const HomeScreen(),
-  const HomeScreen(),
-  const HomeScreen(),
-  const HomeScreen(),
-  const HomeScreen(),
-  const HomeScreen(),
-];
-List<IconData> cyberIcon = [
-  FontAwesomeIcons.facebook,
-  FontAwesomeIcons.instagram,
-  FontAwesomeIcons.internetExplorer,
-  FontAwesomeIcons.rectangleAd,
-];
+
+
 List<String> cyberName = [
   'Facebook',
   'Instagram',
   'Web',
   'Ad',
 ];
-List<Widget> cyberScreen = [
-  AddAntiCyber(),
-  AddAntiCyber(),
-  AddAntiCyber(),
-  AddAntiCyber(),
-];
+

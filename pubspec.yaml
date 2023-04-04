@@ -58,6 +58,8 @@ dependencies:
   flutter_zoom_drawer: ^3.0.4+1
   flutter_staggered_animations: ^1.1.1
   bottom_sheet: ^3.1.2
+  firebase_messaging: ^14.4.0
+  dio: ^5.1.1
  
 
 dev_dependencies:

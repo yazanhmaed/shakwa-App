@@ -18,8 +18,9 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
   static AddComplaintCubit get(context) => BlocProvider.of(context);
 
   Random r = Random();
+  var token = '';
 
- TextEditingController docController = TextEditingController();
+  TextEditingController docController = TextEditingController();
   void complaint({
     String? id,
     required String userid,
@@ -29,6 +30,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String latitude,
     required String longitude,
     required String state,
+    required String token,
     required int color,
     required Timestamp date,
     required String authority,
@@ -53,6 +55,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         latitude: latitude,
         longitude: longitude,
         state: state,
+        token: token,
         color: color,
         date: date,
       );
@@ -71,6 +74,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String latitude,
     required String longitude,
     required String state,
+    required String token,
     required String authority,
     required int color,
     required Timestamp date,
@@ -86,6 +90,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
       latitude: latitude,
       longitude: longitude,
       state: state,
+      token: token,
       color: color,
       date: date,
     );
@@ -104,6 +109,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         latitude: latitude,
         longitude: longitude,
         state: 'Waiting',
+        token: token,
         authority: authority,
         color: 1,
         date: Timestamp.now(),
@@ -123,6 +129,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String latitude,
     required String longitude,
     required String state,
+    required String token,
     required String authority,
     required int color,
     required Timestamp date,
@@ -145,6 +152,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
           latitude: latitude,
           longitude: longitude,
           state: state,
+          token: token,
           authority: authority,
           color: color,
           date: date);
@@ -164,6 +172,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String latitude,
     required String longitude,
     required String state,
+    required String token,
     required String authority,
     required int color,
     required Timestamp date,
@@ -178,6 +187,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
       latitude: latitude,
       longitude: longitude,
       state: state,
+      token: token,
       color: color,
       date: date,
     );
@@ -188,7 +198,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         .doc(id2)
         .set(model.toMap())
         .then((value) {
-      //emit(AddComplaintSuccess2State());
+    
     });
   }
 
@@ -198,6 +208,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String description,
     required String latitude,
     required String longitude,
+    required String token,
     required String authority,
   }) {
     emit(AddComplaintImagePicLoadingState());
@@ -209,13 +220,14 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         complaint(
-          userid: userid,
+            userid: userid,
             type: type,
             description: description,
             image: value,
             latitude: latitude,
             longitude: longitude,
             state: 'Waiting',
+            token: token,
             color: 1,
             date: Timestamp.now(),
             authority: authority);

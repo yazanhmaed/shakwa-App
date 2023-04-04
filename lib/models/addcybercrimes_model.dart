@@ -9,6 +9,7 @@ class AddCyberCrimesModel {
   String? image;
   String? link;
   String? state;
+  String? token;
   int? color;
   Timestamp? date;
   AddCyberCrimesModel({
@@ -20,6 +21,7 @@ class AddCyberCrimesModel {
     this.image,
     this.link,
     this.state,
+    this.token,
     this.color,
     this.date,
   });
@@ -33,6 +35,7 @@ class AddCyberCrimesModel {
     image = json['image'];
     link = json['link'];
     state = json['state'];
+    token = json['token'];
     color = json['color'];
     date = json['date'];
   }
@@ -47,6 +50,7 @@ class AddCyberCrimesModel {
       'image': image,
       'link': link,
       'state': state,
+      'token': token,
       'color': color,
       'date': date,
     };

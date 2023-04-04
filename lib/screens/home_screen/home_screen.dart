@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                   child: GridView.builder(
                     padding: EdgeInsets.only(top: 20),
                     physics: const BouncingScrollPhysics(),
-                    itemCount: screens.length,
+                    itemCount: nameData.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

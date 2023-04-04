@@ -1,6 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pro_test/resources/widgets/signup.dart';
@@ -57,14 +57,12 @@ class LoginScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          // var nameController = TextEditingController();
-          // var emailController = TextEditingController();
-          // var passwordController = TextEditingController();
           var key = GlobalKey<FormState>();
           var cubit = UserCubit.get(context);
+          FirebaseMessaging.instance.getToken().then((value) {
+            cubit.token = value!;
+          });
 
-          // emailController.text = email ?? '';
-          // passwordController.text = passLo ?? '';
           return Scaffold(
             body: Container(
               height: double.infinity,
@@ -110,55 +108,41 @@ class LoginScreen extends StatelessWidget {
                           },
                         ),
                         cubit.positive == 0
-                            ? AnimationConfiguration.staggeredList(
-                              position: cubit.positive,
-                              duration: const Duration(milliseconds: 1500),
-                              child: SlideAnimation(
-                                horizontalOffset: -300,
-                                child: FadeInAnimation(
-                                  child: LoginBuilder(
-                                      onTap: () => cubit.signInWithGoogle(),
-                                      obscureText: cubit.obscureText,
-                                      onPressedobscureText: () =>
-                                          cubit.changeobscureText(),
-                                      emailController:cubit.emailController,
-                                      passwordController:cubit.passwordController,
-                                      onPressed: () async {
-                                        if (key.currentState!.validate()) {
-                                          cubit.userLogin(
-                                              email: cubit.emailController.text,
-                                              password: cubit.passwordController.text);
-                                        }
-                                      },
-                                    ),
-                                ),
-                              ),
-                            )
-                            : AnimationConfiguration.staggeredList(
-                                position: cubit.positive,
-                                duration: const Duration(milliseconds: 1500),
-                                child: SlideAnimation(
-                                  horizontalOffset: 300,
-                                  child: FadeInAnimation(
-                                    child: SignUpBuilder(
-                                        obscureText: cubit.obscureText,
-                                        onPressedobscureText: () =>
-                                            cubit.changeobscureText(),
-                                        nameController: cubit.nameController,
-                                        emailController: cubit.emailController,
-                                        passwordController: cubit.passwordController,
-                                        onPressed: () {
-                                          if (key.currentState!.validate()) {
-                                            cubit.userRegister(
-                                              name: cubit.nameController.text,
-                                              email: cubit.emailController.text,
-                                              password: cubit.passwordController.text,
-                                            );
-                                          }
-                                        }),
-                                  ),
-                                ),
-                              ),
+                            ? LoginBuilder(
+                                positive: cubit.positive,
+                                onTap: () => cubit.signInWithGoogle(),
+                                obscureText: cubit.obscureText,
+                                onPressedobscureText: () =>
+                                    cubit.changeobscureText(),
+                                emailController: cubit.emailController,
+                                passwordController: cubit.passwordController,
+                                onPressed: () async {
+                                  if (key.currentState!.validate()) {
+                                    cubit.userLogin(
+                                        email: cubit.emailController.text,
+                                        password:
+                                            cubit.passwordController.text);
+                                  }
+                                },
+                              )
+                            : SignUpBuilder(
+                                positive: cubit.positive,
+                                obscureText: cubit.obscureText,
+                                onPressedobscureText: () =>
+                                    cubit.changeobscureText(),
+                                nameController: cubit.nameController,
+                                emailController: cubit.emailController,
+                                passwordController: cubit.passwordController,
+                                onPressed: () {
+                                  if (key.currentState!.validate()) {
+                                    cubit.userRegister(
+                                      name: cubit.nameController.text,
+                                      email: cubit.emailController.text,
+                                      password: cubit.passwordController.text,
+                                      token: cubit.token,
+                                    );
+                                  }
+                                }),
                       ],
                     ),
                   )),

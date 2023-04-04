@@ -2,6 +2,8 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:pro_test/resources/components.dart';
+import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/cubit.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
 
@@ -24,6 +26,9 @@ class FollowComplaints extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Follow Complaints'),
+              leading: IconButton(
+                  onPressed: () => navigateAndFinish(context, DrawerScreen()),
+                  icon: Icon(Icons.arrow_back_ios_new)),
             ),
             body: ListView.builder(
               itemCount: cubit.prossesComplaints.length,

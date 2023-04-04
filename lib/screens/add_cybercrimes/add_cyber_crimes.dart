@@ -57,7 +57,6 @@ class AddCyberCrimes extends StatelessWidget {
           var key = GlobalKey<FormState>();
 
           return Scaffold(
-            //     backgroundColor: ColorManager.secondary,
             appBar: AppBar(
               title: Text(title),
             ),
@@ -104,7 +103,6 @@ class AddCyberCrimes extends StatelessWidget {
                                             'Select Item',
                                             style: TextStyle(
                                               fontSize: 20,
-                                              //fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                             overflow: TextOverflow.ellipsis,
@@ -119,7 +117,6 @@ class AddCyberCrimes extends StatelessWidget {
                                                 item,
                                                 style: const TextStyle(
                                                   fontSize: 14,
-                                                  // fontWeight: FontWeight.bold,
                                                   color: Colors.white,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
@@ -188,7 +185,6 @@ class AddCyberCrimes extends StatelessWidget {
                                             'Select Item',
                                             style: TextStyle(
                                               fontSize: 20,
-                                              //fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                             overflow: TextOverflow.ellipsis,
@@ -203,7 +199,6 @@ class AddCyberCrimes extends StatelessWidget {
                                                 item,
                                                 style: const TextStyle(
                                                   fontSize: 14,
-                                                  // fontWeight: FontWeight.bold,
                                                   color: Colors.white,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
@@ -283,7 +278,7 @@ class AddCyberCrimes extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                             TextFormField(
+                              TextFormField(
                                 controller: cubit.linkController,
                                 maxLines: 1,
                                 validator: (value) {
@@ -292,13 +287,12 @@ class AddCyberCrimes extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                // keyboardType: TextInputType.multiline,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: ColorManager.primary,
                                   focusColor: ColorManager.black,
                                   hoverColor: ColorManager.black,
-                                  labelText: 'Decscription',
+                                  labelText: 'Link',
                                   labelStyle: TextStyle(
                                       color: ColorManager.white,
                                       fontWeight: FontWeight.bold,
@@ -328,7 +322,6 @@ class AddCyberCrimes extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                // keyboardType: TextInputType.multiline,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: ColorManager.primary,
@@ -365,14 +358,13 @@ class AddCyberCrimes extends StatelessWidget {
                                   if (key.currentState!.validate()) {
                                     try {
                                       cubit.addCyberCrimes(
-                                          userid: userid,
-                                          authority: data,
-                                          type: cubit.selectedValue!,
-                                          description: cubit.docController.text,
+                                        userid: userid,
+                                        authority: data,
+                                        type: cubit.selectedValue!,
+                                        description: cubit.docController.text,
                                         link: cubit.linkController.text,
                                         social: cubit.selectedValue2!,
-                                              
-                                              );
+                                      );
                                     } catch (e) {
                                       print(e);
                                       Fluttertoast.showToast(

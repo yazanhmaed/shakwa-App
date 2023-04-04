@@ -1,9 +1,15 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:pro_test/resources/color_manager.dart';
+import 'package:pro_test/resources/components.dart';
 import 'package:pro_test/screens/drawer_screen/menu_screen.dart';
+import 'package:pro_test/screens/follow_complaints/previous_complaints.dart';
 import 'package:pro_test/screens/home_screen/home_screen.dart';
+import 'package:pro_test/screens/login_screen/login_screen.dart';
+
+import '../follow_complaints/follow_complaints.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -16,8 +22,29 @@ class _DrawerScreenState extends State<DrawerScreen> {
   final ZoomDrawerController z = ZoomDrawerController();
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (event) {
+        if (uId!.isEmpty) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ));
+        } else if (event.notification!.title == 'Prosses') {
+          // print('prosses');
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => FollowComplaints(),
+          ));
+        } else if (event.notification!.title == 'Success') {
+          //print('Success');
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => PreviousComplaints(),
+          ));
+        }
+      },
+    );
+
+   
     return ZoomDrawer(
-      // drawerShadowsBackgroundColor: Colors.white,
+      
       borderRadius: 24.0,
       showShadow: true,
       angle: 0.0,

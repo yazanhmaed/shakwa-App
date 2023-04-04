@@ -5,9 +5,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/cubit.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
 
+import '../../resources/components.dart';
 import '../../resources/widgets/bottom_sheet.dart';
 
 import '../../resources/widgets/listtitle_widget.dart';
+import '../drawer_screen/drawer_screen.dart';
 
 class PreviousComplaints extends StatelessWidget {
   const PreviousComplaints({super.key});
@@ -23,6 +25,9 @@ class PreviousComplaints extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Previous Complaints'),
+               leading: IconButton(
+                  onPressed: () => navigateAndFinish(context, DrawerScreen()),
+                  icon: Icon(Icons.arrow_back_ios_new)),
             ),
             body: ListView.builder(
               itemCount: cubit.completeComplaints.length,
