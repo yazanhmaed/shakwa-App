@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pro_test/models/add_complaint_model.dart';
+import 'package:pro_test/resources/color_manager.dart';
 import 'package:pro_test/screens/add_complaint/cubit/states.dart';
+import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
 
 import '../../../resources/components.dart';
 
@@ -197,9 +200,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         .collection('complaint/')
         .doc(id2)
         .set(model.toMap())
-        .then((value) {
-    
-    });
+        .then((value) {});
   }
 
   void addComplaint({
@@ -242,10 +243,13 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
 
   File? storieImage;
   var picker = ImagePicker();
+  String imagename = '';
   Future<void> getImage() async {
     final pickerFile = await picker.pickImage(source: ImageSource.camera);
     if (pickerFile != null) {
       storieImage = File(pickerFile.path);
+      imagename = pickerFile.name;
+      //print(pickerFile.name);
       emit(AddComplaintImagePicSuccessState());
     } else {
       print('No Image ');
@@ -253,7 +257,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     }
   }
 
-  Future<Position> determinePosition() async {
+  Future<Position> determinePosition({required BuildContext context}) async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -263,6 +267,34 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        borderSide: BorderSide(
+          color: ColorManager.primary,
+          width: 2,
+        ),
+        // width: 280,
+        buttonsBorderRadius: const BorderRadius.all(
+          Radius.circular(2),
+        ),
+        dismissOnTouchOutside: true,
+        dismissOnBackKeyPress: false,
+        // onDismissCallback: (type) {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(
+        //       content: Text('Dismissed by $type'),
+        //     ),
+        //   );
+        // },
+        headerAnimationLoop: false,
+        animType: AnimType.bottomSlide,
+        title: 'Location',
+        desc: 'Location services are disabled',
+        showCloseIcon: true,
+        btnCancelOnPress: () => navigateAndFinish(context, DrawerScreen()),
+        btnOkOnPress: () => Geolocator.getCurrentPosition(),
+      ).show();
       emit(AddComplainGeolocatorState());
       return Future.error('Location services are disabled.');
     }
@@ -296,11 +328,15 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
   }
 
   Position? position;
+  String latitude = "";
+  String longitude = "";
   Future<void> getGeo() async {
     position = await Geolocator.getCurrentPosition().whenComplete(() {
       // setState(() {});
-      emit(AddComplainGeolocatorState());
+      emit(GetComplainGeolocatorState());
     });
+    latitude = "${position?.latitude}";
+    longitude = "${position?.longitude}";
   }
 
   String? selectedValue;

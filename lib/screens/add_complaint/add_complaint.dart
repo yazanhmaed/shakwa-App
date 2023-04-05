@@ -36,7 +36,8 @@ class AddComplaint extends StatelessWidget {
     ];
 
     return BlocProvider(
-      create: (context) => AddComplaintCubit()..determinePosition(),
+      create: (context) =>
+          AddComplaintCubit()..determinePosition(context: context),
       child: BlocConsumer<AddComplaintCubit, AddComplaintStates>(
         listener: (context, state) {
           if (state is AddComplaintSuccess2State) {
@@ -57,12 +58,11 @@ class AddComplaint extends StatelessWidget {
           AddComplaintCubit cubit = AddComplaintCubit.get(context);
           var key = GlobalKey<FormState>();
           FirebaseMessaging.instance.getToken().then((value) {
-            cubit.token=value!;
-      print(value);
-    });
+            cubit.token = value!;
+            //  print(value);
+          });
 
           return Scaffold(
-           
             appBar: AppBar(
               title: Text(title),
             ),
@@ -109,7 +109,6 @@ class AddComplaint extends StatelessWidget {
                                             'Select Item',
                                             style: TextStyle(
                                               fontSize: 20,
-                                            
                                               color: Colors.white,
                                             ),
                                             overflow: TextOverflow.ellipsis,
@@ -124,7 +123,6 @@ class AddComplaint extends StatelessWidget {
                                                 item,
                                                 style: const TextStyle(
                                                   fontSize: 14,
-                                                  
                                                   color: Colors.white,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
@@ -196,11 +194,19 @@ class AddComplaint extends StatelessWidget {
                                             color: ColorManager.white),
                                       ),
                                       Icon(
-                                        Icons.camera_alt_outlined,
+                                        cubit.imagename.isEmpty
+                                            ? Icons.camera_alt_outlined
+                                            : Icons.check_circle,
                                         color: ColorManager.white,
                                       ),
                                     ],
                                   )),
+                              if (cubit.imagename.isNotEmpty)
+                                Text(
+                                  cubit.imagename,
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.black54),
+                                ),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -212,7 +218,6 @@ class AddComplaint extends StatelessWidget {
                                           Size(double.infinity, 50))),
                                   onPressed: () {
                                     cubit.getGeo();
-                                    
                                   },
                                   child: Row(
                                     mainAxisAlignment:
@@ -223,10 +228,31 @@ class AddComplaint extends StatelessWidget {
                                         style: TextStyle(
                                             color: ColorManager.white),
                                       ),
-                                      Icon(Icons.location_on,
+                                      Icon(
+                                          cubit.position?.latitude != null
+                                              ? Icons.check_circle
+                                              : Icons.location_on,
                                           color: ColorManager.white),
                                     ],
                                   )),
+                              // ignore: unnecessary_null_comparison
+                              if (cubit.position?.latitude != null)
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      ' latitude :${cubit.latitude}',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.black54),
+                                    ),
+                                    Text(
+                                      'longitude :${cubit.longitude}',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.black54),
+                                    ),
+                                  ],
+                                ),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -239,7 +265,6 @@ class AddComplaint extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: ColorManager.primary,
@@ -276,7 +301,7 @@ class AddComplaint extends StatelessWidget {
                                   if (key.currentState!.validate()) {
                                     try {
                                       cubit.addComplaint(
-                                        token: cubit.token,
+                                          token: cubit.token,
                                           userid: userid,
                                           authority: data,
                                           type: cubit.selectedValue!,

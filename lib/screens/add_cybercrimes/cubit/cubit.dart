@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:pro_test/screens/add_cybercrimes/cubit/states.dart';
 
@@ -19,8 +19,8 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
 
   Random r = Random();
 
- TextEditingController docController = TextEditingController();
- TextEditingController linkController = TextEditingController();
+  TextEditingController docController = TextEditingController();
+  TextEditingController linkController = TextEditingController();
   void complaint({
     String? id,
     required String userid,
@@ -84,7 +84,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
       type: type,
       description: description,
       image: image,
-      link:link ,
+      link: link,
       social: social,
       state: state,
       color: color,
@@ -188,9 +188,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         .collection('complaint/')
         .doc(id2)
         .set(model.toMap())
-        .then((value) {
-     
-    });
+        .then((value) {});
   }
 
   void addCyberCrimes({
@@ -210,7 +208,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         complaint(
-          userid: userid,
+            userid: userid,
             type: type,
             description: description,
             image: value,
@@ -231,10 +229,12 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
 
   File? storieImage;
   var picker = ImagePicker();
+  String imagename = '';
   Future<void> getImage() async {
     final pickerFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickerFile != null) {
       storieImage = File(pickerFile.path);
+      imagename = pickerFile.name;
       emit(AddCyberCrimesImagePicSuccessState());
     } else {
       print('No Image ');
@@ -242,61 +242,12 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     }
   }
 
-  Future<Position> determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      emit(AddComplainGeolocatorState());
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        emit(AddComplainGeolocatorState());
-        return Future.error('Location permissions are denied');
-      }
-      emit(AddComplainGeolocatorState());
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      emit(AddComplainGeolocatorState());
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
-    emit(AddComplainGeolocatorState());
-    return await Geolocator.getCurrentPosition();
-  }
-
-  Position? position;
-  Future<void> getGeo() async {
-    position = await Geolocator.getCurrentPosition().whenComplete(() {
-      // setState(() {});
-      emit(AddComplainGeolocatorState());
-    });
-  }
-
   String? selectedValue;
   void changeSwitch(String value) {
     selectedValue = value;
     emit(AddComplainChangeSwitchState());
   }
+
   String? selectedValue2;
   void changeSwitch2(String value) {
     selectedValue2 = value;

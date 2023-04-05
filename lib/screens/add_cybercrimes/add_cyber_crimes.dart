@@ -35,7 +35,7 @@ class AddCyberCrimes extends StatelessWidget {
     ];
 
     return BlocProvider(
-      create: (context) => AddCyberCrimesCubit()..determinePosition(),
+      create: (context) => AddCyberCrimesCubit(),
       child: BlocConsumer<AddCyberCrimesCubit, AddCyberCrimesStates>(
         listener: (context, state) {
           if (state is AddCyberCrimesSuccess2State) {
@@ -270,11 +270,19 @@ class AddCyberCrimes extends StatelessWidget {
                                             color: ColorManager.white),
                                       ),
                                       Icon(
-                                        Icons.camera_alt_outlined,
+                                        cubit.imagename.isEmpty
+                                            ? Icons.camera_alt_outlined
+                                            : Icons.check_circle,
                                         color: ColorManager.white,
                                       ),
                                     ],
                                   )),
+                              if (cubit.imagename.isNotEmpty)
+                                Text(
+                                  cubit.imagename,
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.black54),
+                                ),
                               const SizedBox(
                                 height: 10,
                               ),
