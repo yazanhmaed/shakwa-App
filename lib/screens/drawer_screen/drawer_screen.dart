@@ -10,6 +10,7 @@ import 'package:pro_test/screens/home_screen/home_screen.dart';
 import 'package:pro_test/screens/login_screen/login_screen.dart';
 
 import '../follow_complaints/follow_complaints.dart';
+import '../notification/notification.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -28,12 +29,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => LoginScreen(),
           ));
-        } else if (event.notification!.title == 'Prosses') {
+        } else if (event.notification!.body == 'Prosses') {
           // print('prosses');
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => FollowComplaints(),
           ));
-        } else if (event.notification!.title == 'Success') {
+        } else if (event.notification!.body == 'Success') {
           //print('Success');
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PreviousComplaints(),
@@ -41,6 +42,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         }
       },
     );
+    firebaseMessagingListener(context: context);
 
    
     return ZoomDrawer(

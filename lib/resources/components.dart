@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'color_manager.dart';
 
-
-
 void navigateTo(context, widget) => Navigator.push(
       context,
       MaterialPageRoute(
@@ -27,7 +25,7 @@ void navigateAndFinish(
       },
     );
 
-    showAlertDialog(BuildContext context, Function()? onPressed) {
+showAlertDialog(BuildContext context, Function()? onPressed) {
   // set up the button
   Widget okButton = TextButton(
     onPressed: onPressed,
@@ -72,10 +70,11 @@ void navigateAndFinish(
     },
   );
 }
+
 String? uId;
 String? token = '';
 String? email = '';
 String? passLo = '';
-String? nameUser = '';
+String nameUser = '';
 
 List<String>? favoriteList = [];

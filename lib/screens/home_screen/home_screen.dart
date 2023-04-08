@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/components.dart';
 import '../../resources/string_manager.dart';
+import '../../translations/locale_keys.g.dart';
 import '../add_complaint/add_complaint.dart';
 import '../add_cybercrimes/add_cyber_crimes.dart';
 import 'components.dart';
@@ -19,15 +21,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
-      create: (context) => FollowComplaintsCubit()..getUser(),
+      create: (context) => FollowComplaintsCubit()..getUser()..n(),
       child: BlocConsumer<FollowComplaintsCubit, FollowComplaintsStates>(
         listener: (context, state) {
           if (state is GetUserSuccessState) {
-            nameUser = state.name;
+            // CacheHelper.seveData(key: 'name', value: state.name).then((value) {
+            //   nameUser = CacheHelper.getData(key: 'name');
+            // });
           }
         },
         builder: (context, state) {
+
+        
           var cubit = FollowComplaintsCubit.get(context);
           return ConditionalBuilder(
             condition: FirebaseAuth.instance.currentUser!.emailVerified,
@@ -37,10 +44,10 @@ class HomeScreen extends StatelessWidget {
                 leading: IconButton(
                     onPressed: () {
                       if (ZoomDrawer.of(context)!.isOpen()) {
-                        ZoomDrawer.of(context)!.close();
+                        //  ZoomDrawer.of(context)!.close();
                       } else {
                         ZoomDrawer.of(context)!.open();
-                        print(ZoomDrawer.of(context)!.isOpen());
+                        //print(ZoomDrawer.of(context)!.isOpen());
                       }
                     },
                     icon: Icon(Icons.menu)),
@@ -76,12 +83,12 @@ class HomeScreen extends StatelessWidget {
                               index == 0
                                   ? AddCyberCrimes(
                                       userid: cubit.users[0].uId!,
-                                      title: name[index],
+                                      title: cubit.name[index],
                                       data: nameData[index],
                                     )
                                   : AddComplaint(
                                       userid: cubit.users[0].uId!,
-                                      title: name[index],
+                                      title: cubit.name[index],
                                       data: nameData[index],
                                     ));
                         },
@@ -109,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                                       bottomRight: Radius.circular(12),
                                       bottomLeft: Radius.circular(12))),
                               child: Text(
-                                name[index],
+                                cubit.name[index],
                                 style: TextStyle(color: Colors.white),
                               ),
                               padding: const EdgeInsets.all(12),

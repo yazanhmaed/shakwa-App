@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,6 +8,7 @@ import 'package:pro_test/resources/components.dart';
 
 import '../../resources/string_manager.dart';
 import '../../resources/values_manager.dart';
+import '../../translations/locale_keys.g.dart';
 import '../drawer_screen/drawer_screen.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -265,7 +267,7 @@ class AddCyberCrimes extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Add Photo',
+                                        LocaleKeys.add_photo.tr(),
                                         style: TextStyle(
                                             color: ColorManager.white),
                                       ),
@@ -291,7 +293,7 @@ class AddCyberCrimes extends StatelessWidget {
                                 maxLines: 1,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please Enter Text';
+                                    return LocaleKeys.Please_Enter_link.tr();
                                   }
                                   return null;
                                 },
@@ -300,7 +302,7 @@ class AddCyberCrimes extends StatelessWidget {
                                   fillColor: ColorManager.primary,
                                   focusColor: ColorManager.black,
                                   hoverColor: ColorManager.black,
-                                  labelText: 'Link',
+                                  labelText: LocaleKeys.link.tr(),
                                   labelStyle: TextStyle(
                                       color: ColorManager.white,
                                       fontWeight: FontWeight.bold,
@@ -326,7 +328,7 @@ class AddCyberCrimes extends StatelessWidget {
                                 maxLines: 8,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please Enter Text';
+                                    return LocaleKeys.Please_Enter_Text.tr();
                                   }
                                   return null;
                                 },
@@ -335,7 +337,7 @@ class AddCyberCrimes extends StatelessWidget {
                                   fillColor: ColorManager.primary,
                                   focusColor: ColorManager.black,
                                   hoverColor: ColorManager.black,
-                                  labelText: 'Decscription',
+                                  labelText: LocaleKeys.decscription.tr(),
                                   labelStyle: TextStyle(
                                       color: ColorManager.white,
                                       fontWeight: FontWeight.bold,
@@ -377,7 +379,7 @@ class AddCyberCrimes extends StatelessWidget {
                                       print(e);
                                       Fluttertoast.showToast(
                                           msg:
-                                              "Please Enter the data correctly",
+                                              LocaleKeys.the_data_correctly.tr(),
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
@@ -388,7 +390,7 @@ class AddCyberCrimes extends StatelessWidget {
                                   }
                                 },
                                 child: Text(
-                                  'Send complaint',
+                                 LocaleKeys.send_complaint.tr(),
                                   style: TextStyle(color: ColorManager.white),
                                 ),
                               ),

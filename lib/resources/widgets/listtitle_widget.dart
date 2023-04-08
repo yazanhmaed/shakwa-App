@@ -47,10 +47,7 @@ class ListWidget extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                // Text(
-                //   task.note!,
-                //   style: TextStyle(fontSize: 15, color: Colors.grey[100]),
-                // ),
+               
               ],
             ),
           )),

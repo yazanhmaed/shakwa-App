@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,19 +11,18 @@ import 'package:pro_test/resources/theme_manager.dart';
 import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
 import 'package:pro_test/screens/login_screen/login_screen.dart';
 import 'package:pro_test/screens/notification/notification.dart';
-
-
-
+import 'package:pro_test/translations/codegen_loader.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(messageHandler);
-firebaseMessagingListener();
+// firebaseMessagingListener();
   await Firebase.initializeApp();
   await CacheHelper.init();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-  
+  // nameUser = CacheHelper.getData(key: 'name');
   // ignore: deprecated_member_use
 
   Widget widget;
@@ -35,8 +35,17 @@ firebaseMessagingListener();
   // ignore: deprecated_member_use
   BlocOverrides.runZoned(
     () {
-      runApp(MyApp(
-        startWidget: widget,
+      runApp(EasyLocalization(
+        supportedLocales: [
+          Locale('en'),
+          Locale('ar'),
+        ],
+        fallbackLocale: Locale('en'),
+        path: 'assets/translations',
+        assetLoader: CodegenLoader(),
+        child: MyApp(
+          startWidget: widget,
+        ),
       ));
     },
     blocObserver: MyBlocObserver(),
@@ -50,6 +59,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: getApplicationTheme(),
       home: startWidget,

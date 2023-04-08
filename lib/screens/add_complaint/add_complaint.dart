@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:pro_test/screens/add_complaint/cubit/states.dart';
 
 import '../../resources/string_manager.dart';
 import '../../resources/values_manager.dart';
+import '../../translations/locale_keys.g.dart';
 import '../drawer_screen/drawer_screen.dart';
 
 class AddComplaint extends StatelessWidget {
@@ -189,7 +191,7 @@ class AddComplaint extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Add Photo',
+                                        LocaleKeys.add_photo.tr(),
                                         style: TextStyle(
                                             color: ColorManager.white),
                                       ),
@@ -224,7 +226,7 @@ class AddComplaint extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Add Loction',
+                                        LocaleKeys.add_location.tr(),
                                         style: TextStyle(
                                             color: ColorManager.white),
                                       ),
@@ -242,12 +244,12 @@ class AddComplaint extends StatelessWidget {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      ' latitude :${cubit.latitude}',
+                                      '${LocaleKeys.latitude.tr()} :${cubit.latitude}',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.black54),
                                     ),
                                     Text(
-                                      'longitude :${cubit.longitude}',
+                                      '${LocaleKeys.longitude.tr()} :${cubit.longitude}',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.black54),
                                     ),
@@ -261,7 +263,7 @@ class AddComplaint extends StatelessWidget {
                                 maxLines: 8,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please Enter Text';
+                                    return LocaleKeys.Please_Enter_Text.tr();
                                   }
                                   return null;
                                 },
@@ -270,7 +272,7 @@ class AddComplaint extends StatelessWidget {
                                   fillColor: ColorManager.primary,
                                   focusColor: ColorManager.black,
                                   hoverColor: ColorManager.black,
-                                  labelText: 'Decscription',
+                                  labelText: LocaleKeys.decscription.tr(),
                                   labelStyle: TextStyle(
                                       color: ColorManager.white,
                                       fontWeight: FontWeight.bold,
@@ -314,7 +316,7 @@ class AddComplaint extends StatelessWidget {
                                       print(e);
                                       Fluttertoast.showToast(
                                           msg:
-                                              "Please Enter the data correctly",
+                                              LocaleKeys.the_data_correctly.tr(),
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
@@ -325,7 +327,7 @@ class AddComplaint extends StatelessWidget {
                                   }
                                 },
                                 child: Text(
-                                  'Send complaint',
+                                  LocaleKeys.send_complaint.tr(),
                                   style: TextStyle(color: ColorManager.white),
                                 ),
                               ),

@@ -1,4 +1,5 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -9,6 +10,7 @@ import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
 
 import '../../resources/widgets/bottom_sheet.dart';
 import '../../resources/widgets/listtitle_widget.dart';
+import '../../translations/locale_keys.g.dart';
 
 class FollowComplaints extends StatelessWidget {
   const FollowComplaints({super.key});
@@ -18,14 +20,14 @@ class FollowComplaints extends StatelessWidget {
     return BlocProvider(
       create: (context) => FollowComplaintsCubit()
         ..getFollowComplaints()
-        ..getUser(),
+        ,
       child: BlocConsumer<FollowComplaintsCubit, FollowComplaintsStates>(
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = FollowComplaintsCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text('Follow Complaints'),
+              title: Text(LocaleKeys.follow_Complaint.tr()),
               leading: IconButton(
                   onPressed: () => navigateAndFinish(context, DrawerScreen()),
                   icon: Icon(Icons.arrow_back_ios_new)),

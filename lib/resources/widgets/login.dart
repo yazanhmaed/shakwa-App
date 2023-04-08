@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pro_test/resources/components.dart';
 import 'package:pro_test/screens/password_reset/password_reset.dart';
 import 'package:text_divider/text_divider.dart';
 
+import '../../translations/locale_keys.g.dart';
 import '../color_manager.dart';
 import '../string_manager.dart';
 import '../styles_manager.dart';
@@ -52,18 +54,18 @@ class LoginBuilder extends StatelessWidget {
                     InputText(
                       type: TextInputType.emailAddress,
                       hintText: '',
-                      validator: 'Enter your Email',
+                      validator: LocaleKeys.Enter_your_Email.tr(),
                       icon: Icons.email,
                       controller: emailController,
-                      labelText: 'Email',
+                      labelText: LocaleKeys.email.tr(),
                     ),
                     InputText(
                       type: TextInputType.visiblePassword,
                       hintText: '',
-                      validator: 'Enter your Password',
+                      validator: LocaleKeys.Enter_your_Password.tr(),
                       icon: Icons.password,
                       controller: passwordController,
-                      labelText: 'Password',
+                      labelText:LocaleKeys.password.tr(),
                       obscureText: obscureText,
                       suffixIcon: IconButton(
                           onPressed: onPressedobscureText,
@@ -83,7 +85,7 @@ class LoginBuilder extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Forgot password?',
+                              LocaleKeys.forgot_password.tr(),
                               style: getBoldStyle(color: ColorManager.black),
                             ),
                             SizedBox(
@@ -93,7 +95,7 @@ class LoginBuilder extends StatelessWidget {
                               onTap: () =>
                                   navigateTo(context, PasswordResetScreen()),
                               child: Text(
-                                'click',
+                                LocaleKeys.click.tr(),
                                 style: getBoldStyle(
                                     color: Colors.amber, fontSize: 15),
                               ),
@@ -103,14 +105,14 @@ class LoginBuilder extends StatelessWidget {
                         ButtomCustom(
                           onPressed: onPressed,
                           textStyle: TextStyle(color: ColorManager.white),
-                          text: 'Login',
+                          text: LocaleKeys.login.tr(),
                           color: ColorManager.amber,
                         ),
                       ],
                     ),
                     TextDivider.horizontal(
                         color: ColorManager.amber.withOpacity(0.6),
-                        text: const Text('Or'),
+                        text:  Text(LocaleKeys.or.tr()),
                         thickness: 5),
                     SizedBox(
                       height: 5,

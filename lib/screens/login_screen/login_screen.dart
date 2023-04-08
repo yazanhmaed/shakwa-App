@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ import '../../resources/components.dart';
 import '../../resources/string_manager.dart';
 
 import '../../resources/widgets/login.dart';
+import '../../translations/locale_keys.g.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -37,7 +39,7 @@ class LoginScreen extends StatelessWidget {
           }
           if (state is UserErrorState) {
             Fluttertoast.showToast(
-                msg: "تأكد من الايميل و كلمه المرور",
+                msg: LocaleKeys.Verify_your_email_and_password.tr(),
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -101,7 +103,7 @@ class LoginScreen extends StatelessWidget {
                           inactiveFgColor: Colors.white,
                           initialLabelIndex: cubit.positive,
                           totalSwitches: 2,
-                          labels: const ['Login', 'Sign Up'],
+                          labels:  [LocaleKeys.login.tr(), LocaleKeys.signup.tr()],
                           radiusStyle: true,
                           onToggle: (index) {
                             cubit.changecurrentSwitch(posit: index!);

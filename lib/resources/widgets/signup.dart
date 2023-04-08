@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../translations/locale_keys.g.dart';
 import '../color_manager.dart';
 import 'button_custom.dart';
 import 'input_text.dart';
@@ -44,26 +46,26 @@ class SignUpBuilder extends StatelessWidget {
                 InputText(
                   type: TextInputType.name,
                   hintText: '',
-                  validator: 'Enter your Name',
+                  validator: LocaleKeys.Enter_your_Name.tr(),
                   icon: Icons.person,
                   controller: nameController,
-                  labelText: 'Name',
+                  labelText: LocaleKeys.name.tr(),
                 ),
                 InputText(
                   type: TextInputType.emailAddress,
                   hintText: '',
-                  validator: 'Enter your Email',
+                  validator: LocaleKeys.Enter_your_Email.tr(),
                   icon: Icons.email,
                   controller: emailController,
-                  labelText: 'Email',
+                  labelText: LocaleKeys.email.tr(),
                 ),
                 InputText(
                   type: TextInputType.visiblePassword,
                   hintText: '',
-                  validator: 'Enter your Password',
+                  validator: LocaleKeys.Enter_your_Password.tr(),
                   icon: Icons.password,
                   controller: passwordController,
-                  labelText: 'Password',
+                  labelText: LocaleKeys.password.tr(),
                   obscureText: obscureText,
                   suffixIcon: IconButton(
                       onPressed: onPressedobscureText,
@@ -80,7 +82,7 @@ class SignUpBuilder extends StatelessWidget {
                 ButtomCustom(
                   onPressed: onPressed,
                   textStyle: TextStyle(color: ColorManager.white),
-                  text: 'Sign Up',
+                  text: LocaleKeys.signup.tr(),
                   color: ColorManager.amber,
                 ),
               ],

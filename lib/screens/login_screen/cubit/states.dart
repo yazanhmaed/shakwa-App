@@ -17,10 +17,15 @@ class CreateUserLoadingState extends UserStates {}
 class CreateUserSuccessState extends UserStates {}
 
 class CreateUserErrorState extends UserStates {}
-
 class GetUserLoadingState extends UserStates {}
 
-class GetUserSuccessState extends UserStates {}
+class GetUserSuccessState extends UserStates {
+  final String name;
+
+  GetUserSuccessState(this.name);
+}
+
+class GetUserErrorState extends UserStates {}
 
 class ChangeSuccessState extends UserStates {}
 class EmailVerifySuccessState extends UserStates {}
@@ -31,7 +36,7 @@ class PasswordResetSuccessState extends UserStates {}
 class PasswordResetErrorState extends UserStates {}
 class ChangeobscureTextSuccessState extends UserStates {}
 
-class GetUserErrorState extends UserStates {}
+// class GetUserErrorState extends UserStates {}
 
 class AddUserLoadingState extends UserStates {}
 

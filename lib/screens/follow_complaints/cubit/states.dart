@@ -26,4 +26,7 @@ class GetUserSuccessState extends FollowComplaintsStates {
   GetUserSuccessState(this.name);
 }
 
+
 class GetUserErrorState extends FollowComplaintsStates {}
+class GetnameLoadingState extends FollowComplaintsStates {}
+class GetnameState extends FollowComplaintsStates {}

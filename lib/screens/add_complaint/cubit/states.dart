@@ -24,7 +24,8 @@ class AddComplaintImagePicSuccessState extends AddComplaintStates {}
 
 class AddComplainImagePicErrorState extends AddComplaintStates {}
 
-class AddComplainGeolocatorState extends AddComplaintStates {}
 class GetComplainGeolocatorState extends AddComplaintStates {}
+class AddComplainGeolocatorState extends AddComplaintStates {}
+class ErrorComplainGeolocatorState extends AddComplaintStates {}
 
 class AddComplainChangeSwitchState extends AddComplaintStates {}

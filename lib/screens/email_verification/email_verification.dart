@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:pro_test/screens/login_screen/login_screen.dart';
 
 import '../../resources/cache_helper.dart';
 import '../../resources/widgets/button_custom.dart';
+import '../../translations/locale_keys.g.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   const EmailVerificationScreen({super.key});
@@ -63,12 +65,12 @@ class EmailVerificationScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            'Please verify your email',
+                            LocaleKeys.Please_verify_your_email.tr(),
                             style: TextStyle(
                                 fontSize: 20, color: ColorManager.white),
                           ),
                           ButtomCustom(
-                            text: 'Send',
+                            text: LocaleKeys.Send.tr(),
                             color: ColorManager.amber,
                             onPressed: () => cubit.getEmailVerify(),
                           )

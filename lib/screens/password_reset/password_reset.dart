@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pro_test/resources/components.dart';
@@ -7,6 +8,7 @@ import '../../resources/color_manager.dart';
 import '../../resources/string_manager.dart';
 import '../../resources/widgets/button_custom.dart';
 import '../../resources/widgets/input_text.dart';
+import '../../translations/locale_keys.g.dart';
 import '../login_screen/cubit/cubit.dart';
 import '../login_screen/cubit/states.dart';
 
@@ -56,16 +58,16 @@ class PasswordResetScreen extends StatelessWidget {
                           InputText(
                             type: TextInputType.emailAddress,
                             hintText: '',
-                            validator: 'Enter your Email',
+                            validator: LocaleKeys.Enter_your_Email.tr(),
                             icon: Icons.email,
                             controller: cubit.emailController,
-                            labelText: 'Email',
+                            labelText: LocaleKeys.email.tr(),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ButtomCustom(
-                                text: 'Reset',
+                                text: LocaleKeys.Reset.tr(),
                                 color: ColorManager.amber,
                                 onPressed: () => cubit.getPassword(
                                     email: cubit.emailController.text),

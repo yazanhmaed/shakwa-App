@@ -1,4 +1,5 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -9,6 +10,7 @@ import '../../resources/components.dart';
 import '../../resources/widgets/bottom_sheet.dart';
 
 import '../../resources/widgets/listtitle_widget.dart';
+import '../../translations/locale_keys.g.dart';
 import '../drawer_screen/drawer_screen.dart';
 
 class PreviousComplaints extends StatelessWidget {
@@ -24,7 +26,7 @@ class PreviousComplaints extends StatelessWidget {
           var cubit = FollowComplaintsCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text('Previous Complaints'),
+              title: Text(LocaleKeys.previous_Complaint.tr()),
                leading: IconButton(
                   onPressed: () => navigateAndFinish(context, DrawerScreen()),
                   icon: Icon(Icons.arrow_back_ios_new)),

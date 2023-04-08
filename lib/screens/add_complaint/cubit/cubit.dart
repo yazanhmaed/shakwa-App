@@ -264,9 +264,6 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
@@ -274,19 +271,11 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
           color: ColorManager.primary,
           width: 2,
         ),
-        // width: 280,
         buttonsBorderRadius: const BorderRadius.all(
           Radius.circular(2),
         ),
         dismissOnTouchOutside: true,
         dismissOnBackKeyPress: false,
-        // onDismissCallback: (type) {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       content: Text('Dismissed by $type'),
-        //     ),
-        //   );
-        // },
         headerAnimationLoop: false,
         animType: AnimType.bottomSlide,
         title: 'Location',
@@ -295,7 +284,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         btnCancelOnPress: () => navigateAndFinish(context, DrawerScreen()),
         btnOkOnPress: () => Geolocator.getCurrentPosition(),
       ).show();
-      emit(AddComplainGeolocatorState());
+      emit(ErrorComplainGeolocatorState());
       return Future.error('Location services are disabled.');
     }
 
