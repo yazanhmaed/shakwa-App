@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pro_test/resources/color_manager.dart';
+import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
 import 'package:pro_test/screens/follow_complaints/contact%20numbers.dart';
-import 'package:pro_test/screens/follow_complaints/cubit/cubit.dart';
 import 'package:pro_test/screens/login_screen/cubit/cubit.dart';
 import 'package:pro_test/screens/login_screen/cubit/states.dart';
 
@@ -24,19 +24,14 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final googleSignIn = GoogleSignIn();
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<UserCubit>(
-          create: (context) => UserCubit()..getUser(uId: uId!),
-        ),
-        BlocProvider<FollowComplaintsCubit>(
-          create: (context) => FollowComplaintsCubit()..n(),
-        ),
-      ],
+    return BlocProvider<UserCubit>(
+      create: (context) => UserCubit()..getUser(uId: uId!),
       child: BlocConsumer<UserCubit, UserStates>(
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = UserCubit.get(context);
+          // var cubit2 = FollowComplaintsCubit.get(context);
+
           return Scaffold(
             backgroundColor: ColorManager.primary,
             body: Padding(
@@ -96,26 +91,6 @@ class MenuScreen extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      TextButton(
-                          onPressed: () async {
-                            await context.setLocale(Locale('en'));
-                            FollowComplaintsCubit.get(context).n();
-                          },
-                          child: Text('en')),
-                      TextButton(
-                          onPressed: () async {
-                            FollowComplaintsCubit.get(context).n();
-                            await context.setLocale(Locale('ar'));
-                          },
-                          child: Text('ar')),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
                   ListTile(
                     onTap: () {
                       CacheHelper.removeData(key: 'name');
@@ -131,6 +106,27 @@ class MenuScreen extends StatelessWidget {
                     ),
                     title: Text(LocaleKeys.logout.tr()),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextButton(
+                      onPressed: () async {
+                        // ignore: unrelated_type_equality_checks
+                        await cubit.changeDraw(context);
+                        navigateAndFinish(context, DrawerScreen());
+                        // print(context.locale);
+                        // FollowComplaintsCubit.get(context).n();
+                      },
+                      // ignore: unrelated_type_equality_checks
+                      child: draw == true
+                          ? Text(
+                              'En|الانجليزية',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          : Text(
+                              'Ar|العربية',
+                              style: TextStyle(color: Colors.white),
+                            )),
                   SizedBox(
                     height: 10,
                   ),

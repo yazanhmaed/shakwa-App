@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pro_test/models/add_complaint_model.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
@@ -69,9 +70,18 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
     });
   }
 
+  // bool draw = false;
+   Future changeDraw(BuildContext context) async {
+    draw != false
+        ? await context.setLocale(Locale('en'))
+        : await context.setLocale(Locale('ar'));
+    draw = !draw!;
+    print(draw);
+    emit(ChangeDrawState());
+  }
+
   List name = [];
   Future n() async {
-  
     emit(GetnameLoadingState());
     name = [
       LocaleKeys.Anti_Cyber_Crimes.tr(),

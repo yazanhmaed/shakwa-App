@@ -30,3 +30,5 @@ class GetUserSuccessState extends FollowComplaintsStates {
 class GetUserErrorState extends FollowComplaintsStates {}
 class GetnameLoadingState extends FollowComplaintsStates {}
 class GetnameState extends FollowComplaintsStates {}
+class ChangeDrawState extends FollowComplaintsStates {}
+class ChangeDrawErrorState extends FollowComplaintsStates {}

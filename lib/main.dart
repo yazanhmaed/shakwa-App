@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:pro_test/resources/bloc.dart';
 import 'package:pro_test/resources/cache_helper.dart';
 import 'package:pro_test/resources/components.dart';
@@ -17,12 +18,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(messageHandler);
-// firebaseMessagingListener();
   await Firebase.initializeApp();
   await CacheHelper.init();
+  await Geolocator.requestPermission();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-  // nameUser = CacheHelper.getData(key: 'name');
   // ignore: deprecated_member_use
 
   Widget widget;
@@ -58,6 +58,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(context.locale);
+    // ignore: unrelated_type_equality_checks
+    if (context.locale == Locale('en')) {
+      draw = false;
+    } else {
+      draw = true;
+    }
     return MaterialApp(
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,

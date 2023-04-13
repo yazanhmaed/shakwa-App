@@ -17,6 +17,7 @@ class CreateUserLoadingState extends UserStates {}
 class CreateUserSuccessState extends UserStates {}
 
 class CreateUserErrorState extends UserStates {}
+
 class GetUserLoadingState extends UserStates {}
 
 class GetUserSuccessState extends UserStates {
@@ -28,12 +29,15 @@ class GetUserSuccessState extends UserStates {
 class GetUserErrorState extends UserStates {}
 
 class ChangeSuccessState extends UserStates {}
+
 class EmailVerifySuccessState extends UserStates {}
 
 class EmailVerifyErrorState extends UserStates {}
+
 class PasswordResetSuccessState extends UserStates {}
 
 class PasswordResetErrorState extends UserStates {}
+
 class ChangeobscureTextSuccessState extends UserStates {}
 
 // class GetUserErrorState extends UserStates {}
@@ -57,3 +61,6 @@ class AddCreateUserErrorState extends UserStates {}
 class LogoutSuccessState extends UserStates {}
 
 class LogoutErrorState extends UserStates {}
+
+class ChangeDrawState extends UserStates {}
+class Change2DrawState extends UserStates {}

@@ -43,5 +43,8 @@
   "longitude": "خط الطول",
   "Enter_your_Email": "أدخل بريدك الإلكتروني",
   "Enter_your_Password": "أدخل كلمة المرور",
-  "Enter_your_Name": "أدخل أسمك"
+  "Enter_your_Name": "أدخل أسمك",
+  "waiting": "بالانتظار",
+  "Prosses": "معالجة",
+  "Success": "مكتمل"
 }

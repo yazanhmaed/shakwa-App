@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pro_test/resources/color_manager.dart';
 import 'package:pro_test/resources/components.dart';
 import 'package:pro_test/resources/string_manager.dart';
+import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
 import 'package:pro_test/screens/login_screen/cubit/cubit.dart';
 import 'package:pro_test/screens/login_screen/cubit/states.dart';
 import 'package:pro_test/screens/login_screen/login_screen.dart';
@@ -36,10 +37,13 @@ class EmailVerificationScreen extends StatelessWidget {
                       googleSignIn.disconnect();
                     });
                   },
-                  icon: Icon(Icons.arrow_back_ios_new)),
+                  icon: Icon(
+                    Icons.logout,
+                  )),
             ),
             body: Container(
               height: double.infinity,
+              width: double.infinity,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(AppString.complaintBackground),
@@ -60,19 +64,34 @@ class EmailVerificationScreen extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.all(20),
-                      color: ColorManager.primary.withOpacity(0.8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: ColorManager.primary.withOpacity(0.8),
+                      ),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             LocaleKeys.Please_verify_your_email.tr(),
                             style: TextStyle(
                                 fontSize: 20, color: ColorManager.white),
                           ),
-                          ButtomCustom(
-                            text: LocaleKeys.Send.tr(),
-                            color: ColorManager.amber,
-                            onPressed: () => cubit.getEmailVerify(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ButtomCustom(
+                                text: LocaleKeys.Send.tr(),
+                                color: ColorManager.amber,
+                                onPressed: () => cubit.getEmailVerify(),
+                              ),
+                              ButtomCustom(
+                                text: LocaleKeys.ok.tr(),
+                                color: ColorManager.amber,
+                                onPressed: () =>
+                                    navigateAndFinish(context, DrawerScreen()),
+                              ),
+                            ],
                           )
                         ],
                       ),

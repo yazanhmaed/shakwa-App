@@ -46,5 +46,8 @@ abstract class  LocaleKeys {
   static const Enter_your_Email = 'Enter_your_Email';
   static const Enter_your_Password = 'Enter_your_Password';
   static const Enter_your_Name = 'Enter_your_Name';
+  static const waiting = 'waiting';
+  static const Prosses = 'Prosses';
+  static const Success = 'Success';
 
 }

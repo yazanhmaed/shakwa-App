@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class UserCubit extends Cubit<UserStates> {
   }
 
   List<UserModel> users = [];
-  String n='';
+  String n = '';
   void getUser({
     required String uId,
   }) async {
@@ -147,7 +148,7 @@ class UserCubit extends Cubit<UserStates> {
       emit(UserSuccessState(value.user!.uid));
     }).catchError((onError) {
       print(onError);
-      // emit(UserErrorState());
+      //emit(UserErrorState());
     });
   }
 
@@ -207,5 +208,14 @@ class UserCubit extends Cubit<UserStates> {
     obscureText = !obscureText;
     //  print(obscureText);
     emit(ChangeobscureTextSuccessState());
+  }
+
+  Future changeDraw(BuildContext context) async {
+    draw != false
+        ? await context.setLocale(Locale('en'))
+        : await context.setLocale(Locale('ar'));
+    draw = !draw!;
+    print(draw);
+    emit(ChangeDrawState());
   }
 }

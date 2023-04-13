@@ -27,11 +27,12 @@ class PreviousComplaints extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(LocaleKeys.previous_Complaint.tr()),
-               leading: IconButton(
+              leading: IconButton(
                   onPressed: () => navigateAndFinish(context, DrawerScreen()),
                   icon: Icon(Icons.arrow_back_ios_new)),
             ),
             body: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: cubit.completeComplaints.length,
               itemBuilder: (context, index) {
                 return AnimationConfiguration.staggeredList(

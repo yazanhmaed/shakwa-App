@@ -18,9 +18,7 @@ class FollowComplaints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FollowComplaintsCubit()
-        ..getFollowComplaints()
-        ,
+      create: (context) => FollowComplaintsCubit()..getFollowComplaints(),
       child: BlocConsumer<FollowComplaintsCubit, FollowComplaintsStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -33,6 +31,7 @@ class FollowComplaints extends StatelessWidget {
                   icon: Icon(Icons.arrow_back_ios_new)),
             ),
             body: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: cubit.prossesComplaints.length,
               itemBuilder: (context, index) {
                 return AnimationConfiguration.staggeredList(
@@ -43,7 +42,7 @@ class FollowComplaints extends StatelessWidget {
                     child: FadeInAnimation(
                       child: GestureDetector(
                         onTap: () {
-                          print(cubit.prossesComplaints[index].description);
+                          //  print(cubit.prossesComplaints[index].description);
                           showFlexibleBottomSheet(
                             minHeight: 0,
                             initHeight: 0.9,

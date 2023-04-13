@@ -43,5 +43,8 @@
   "longitude": "longitude",
   "Enter_your_Email": "Enter your Email",
   "Enter_your_Password": "Enter your Password",
-  "Enter_your_Name": "Enter your Name"
+  "Enter_your_Name": "Enter your Name",
+  "waiting": "Waiting",
+  "Prosses": "Prosses",
+  "Success": "Success"
 }

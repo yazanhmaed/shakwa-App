@@ -18,6 +18,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
   static AddCyberCrimesCubit get(context) => BlocProvider.of(context);
 
   Random r = Random();
+  var token = '';
 
   TextEditingController docController = TextEditingController();
   TextEditingController linkController = TextEditingController();
@@ -30,6 +31,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String link,
     required String social,
     required String state,
+    required String token,
     required int color,
     required Timestamp date,
     required String authority,
@@ -54,6 +56,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         link: link,
         social: social,
         state: state,
+        token: token,
         color: color,
         date: date,
       );
@@ -72,6 +75,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String link,
     required String social,
     required String state,
+    required String token,
     required String authority,
     required int color,
     required Timestamp date,
@@ -87,6 +91,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
       link: link,
       social: social,
       state: state,
+      token: token,
       color: color,
       date: date,
     );
@@ -105,6 +110,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         link: link,
         social: social,
         state: 'Waiting',
+        token: token,
         authority: authority,
         color: 1,
         date: Timestamp.now(),
@@ -124,6 +130,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String link,
     required String social,
     required String state,
+    required String token,
     required String authority,
     required int color,
     required Timestamp date,
@@ -146,6 +153,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
           link: link,
           social: social,
           state: state,
+          token: token,
           authority: authority,
           color: color,
           date: date);
@@ -165,6 +173,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String link,
     required String social,
     required String state,
+    required String token,
     required String authority,
     required int color,
     required Timestamp date,
@@ -179,6 +188,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
       link: link,
       social: social,
       state: state,
+      token: token,
       color: color,
       date: date,
     );
@@ -197,6 +207,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String description,
     required String link,
     required String social,
+    required String token,
     required String authority,
   }) {
     emit(AddCyberCrimesImagePicLoadingState());
@@ -215,6 +226,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
             link: link,
             social: social,
             state: 'Waiting',
+            token: token,
             color: 1,
             date: Timestamp.now(),
             authority: authority);

@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,6 @@ import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/components.dart';
 import '../../resources/string_manager.dart';
-import '../../translations/locale_keys.g.dart';
 import '../add_complaint/add_complaint.dart';
 import '../add_cybercrimes/add_cyber_crimes.dart';
 import 'components.dart';
@@ -21,9 +19,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
-      create: (context) => FollowComplaintsCubit()..getUser()..n(),
+      create: (context) => FollowComplaintsCubit()
+        ..getUser()
+        ..n(),
       child: BlocConsumer<FollowComplaintsCubit, FollowComplaintsStates>(
         listener: (context, state) {
           if (state is GetUserSuccessState) {
@@ -33,8 +32,6 @@ class HomeScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-
-        
           var cubit = FollowComplaintsCubit.get(context);
           return ConditionalBuilder(
             condition: FirebaseAuth.instance.currentUser!.emailVerified,
@@ -115,9 +112,11 @@ class HomeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(12),
                                       bottomLeft: Radius.circular(12))),
-                              child: Text(
-                                cubit.name[index],
-                                style: TextStyle(color: Colors.white),
+                              child: Center(
+                                child: Text(
+                                  cubit.name[index],
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                               padding: const EdgeInsets.all(12),
                             )

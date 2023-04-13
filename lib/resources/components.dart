@@ -76,5 +76,6 @@ String? token = '';
 String? email = '';
 String? passLo = '';
 String nameUser = '';
+bool? draw;
 
 List<String>? favoriteList = [];

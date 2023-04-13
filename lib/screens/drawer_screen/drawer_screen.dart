@@ -44,20 +44,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
     firebaseMessagingListener(context: context);
 
-   
     return ZoomDrawer(
-      
+      isRtl: draw!,
       borderRadius: 24.0,
       showShadow: true,
       angle: 0.0,
       drawerShadowsBackgroundColor: Colors.grey[300]!,
       slideWidth: MediaQuery.of(context).size.width * 0.6,
       mainScreenScale: 0.05,
-
       shadowLayer2Color: Colors.white38,
       menuBackgroundColor: ColorManager.primary,
       moveMenuScreen: true,
-
       controller: z,
       style: DrawerStyle.defaultStyle,
       openCurve: Curves.easeInQuad,

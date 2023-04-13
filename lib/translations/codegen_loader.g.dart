@@ -59,7 +59,10 @@ class CodegenLoader extends AssetLoader{
   "longitude": "خط الطول",
   "Enter_your_Email": "أدخل بريدك الإلكتروني",
   "Enter_your_Password": "أدخل كلمة المرور",
-  "Enter_your_Name": "أدخل أسمك"
+  "Enter_your_Name": "أدخل أسمك",
+  "waiting": "بالانتظار",
+  "Prosses": "معالجة",
+  "Success": "مكتمل"
 };
 static const Map<String,dynamic> en = {
   "email": "Email",
@@ -106,7 +109,10 @@ static const Map<String,dynamic> en = {
   "longitude": "longitude",
   "Enter_your_Email": "Enter your Email",
   "Enter_your_Password": "Enter your Password",
-  "Enter_your_Name": "Enter your Name"
+  "Enter_your_Name": "Enter your Name",
+  "waiting": "Waiting",
+  "Prosses": "Prosses",
+  "Success": "Success"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

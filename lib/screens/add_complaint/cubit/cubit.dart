@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:pro_test/models/add_complaint_model.dart';
 import 'package:pro_test/resources/color_manager.dart';
 import 'package:pro_test/screens/add_complaint/cubit/states.dart';
 import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
+import 'package:pro_test/translations/locale_keys.g.dart';
 
 import '../../../resources/components.dart';
 
@@ -278,11 +280,13 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         dismissOnBackKeyPress: false,
         headerAnimationLoop: false,
         animType: AnimType.bottomSlide,
-        title: 'Location',
-        desc: 'Location services are disabled',
+        title: LocaleKeys.Location.tr(),
+        desc: LocaleKeys.Location_services.tr(),
         showCloseIcon: true,
         btnCancelOnPress: () => navigateAndFinish(context, DrawerScreen()),
         btnOkOnPress: () => Geolocator.getCurrentPosition(),
+        btnCancelText: LocaleKeys.cancel.tr(),
+        btnOkText: LocaleKeys.ok.tr(),
       ).show();
       emit(ErrorComplainGeolocatorState());
       return Future.error('Location services are disabled.');
