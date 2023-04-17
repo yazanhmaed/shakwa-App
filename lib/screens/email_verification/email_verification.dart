@@ -29,6 +29,7 @@ class EmailVerificationScreen extends StatelessWidget {
           var cubit = UserCubit.get(context);
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.grey.shade100,
               leading: IconButton(
                   onPressed: () {
                     CacheHelper.removeData(key: 'uId').then(

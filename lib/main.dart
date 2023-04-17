@@ -18,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(messageHandler);
+
   await Firebase.initializeApp();
   await CacheHelper.init();
   await Geolocator.requestPermission();
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: getApplicationTheme(),
-      home: startWidget,
+      home:  startWidget,
     );
   }
 }

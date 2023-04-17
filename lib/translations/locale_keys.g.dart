@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const email = 'email';
   static const password = 'password';
   static const login = 'login';
@@ -34,7 +34,8 @@ abstract class  LocaleKeys {
   static const contact_numbers = 'contact_numbers';
   static const logout = 'logout';
   static const link = 'link';
-  static const Verify_your_email_and_password = 'Verify_your_email_and_password';
+  static const Verify_your_email_and_password =
+      'Verify_your_email_and_password';
   static const Reset = 'Reset';
   static const Please_verify_your_email = 'Please_verify_your_email';
   static const Send = 'Send';
@@ -49,5 +50,51 @@ abstract class  LocaleKeys {
   static const waiting = 'waiting';
   static const Prosses = 'Prosses';
   static const Success = 'Success';
-
+  static const hole_in_the_street = 'hole_in_the_street';
+  static const Pavement_problems = 'Pavement_problems';
+  static const illegal_construction = 'illegal_construction';
+  static const Unlicensed_stores = 'Unlicensed_stores';
+  static const Electricity_theft = 'Electricity_theft';
+  static const street_lighting = 'street_lighting';
+  static const Electricity_poles = 'Electricity_poles';
+  static const Demolition_and_construction = 'Demolition_and_construction';
+  static const Scattered_waste = 'Scattered_waste';
+  static const Car_accident = 'Car_accident';
+  static const damaged_cars = 'damaged_cars';
+  static const blocking_trees = 'blocking_trees';
+  static const presence_of_sewage = 'presence_of_sewage';
+  static const Broken_water_pipe = 'Broken_water_pipe';
+  static const Select_complaint = 'Select_complaint';
+  static const electricity_network = 'electricity_network';
+  static const Frequent_power_outages = 'Frequent_power_outages';
+  static const High_electricity_bills = 'High_electricity_bills';
+  static const Frequent_water_outages = 'Frequent_water_outages';
+  static const High_water_bills = 'High_water_bills';
+  static const resulting_from_factories = 'resulting_from_factories';
+  static const pollution_from_vehicles = 'pollution_from_vehicles';
+  static const cut_down_trees = 'cut_down_trees';
+  static const Objection_traffic_violation = 'Objection_traffic_violation';
+  static const Traffic_signal_malfunction = 'Traffic_signal_malfunction';
+  static const Water_and_soil_pollution = 'Water_and_soil_pollution';
+  static const Agricultural_insurance_problems =
+      'Agricultural_insurance_problems';
+  static const harmful_pesticides = 'harmful_pesticides';
+  static const Difficulty_accessing_markets = 'Difficulty_accessing_markets';
+  static const health_and_quality = 'health_and_quality';
+  static const Service_quality_affected = 'Service_quality_affected';
+  static const High_prices_for_services = 'High_prices_for_services';
+  static const Poor_network_coverage = 'Poor_network_coverage';
+  static const customer_service = 'customer_service';
+  static const Hacking_personal_accounts = 'Hacking_personal_accounts';
+  static const Electronic_harassment = 'Electronic_harassment';
+  static const privacy_personal_data = 'privacy_personal_data';
+  static const Fraud_in_online_purchases = 'Fraud_in_online_purchases';
+  static const Assault_and_defamation = 'Assault_and_defamation';
+  static const Impersonation_pseudonyms = 'Impersonation_pseudonyms';
+  static const other = 'other';
+  static const zain = 'zain';
+  static const Umniah = 'Umniah';
+  static const Orange = 'Orange';
+  static const Select_Social_Media = 'Select_Social_Media';
+  static const Select_type_service = 'Select_type_service';
 }

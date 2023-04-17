@@ -64,7 +64,8 @@ dependencies:
   easy_localization: ^3.0.1
   fancy_shimmer_image: ^2.0.2
   url_launcher: ^6.1.10
- 
+  loading_animations: ^2.2.0
+
 
 dev_dependencies:
   flutter_test:

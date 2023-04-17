@@ -6,39 +6,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pro_test/resources/color_manager.dart';
 import 'package:pro_test/resources/components.dart';
-import 'package:pro_test/screens/add_complaint/cubit/cubit.dart';
-import 'package:pro_test/screens/add_complaint/cubit/states.dart';
 
 import '../../resources/string_manager.dart';
 import '../../resources/values_manager.dart';
 import '../../translations/locale_keys.g.dart';
 import '../drawer_screen/drawer_screen.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
-class AddComplaint extends StatelessWidget {
-  const AddComplaint(
+class AddCommunications extends StatelessWidget {
+  const AddCommunications(
       {super.key,
       required this.title,
       required this.data,
       required this.userid,
+      required this.servies,
       required this.list});
   final String title;
   final String data;
   final String userid;
+  final List servies;
   final List list;
 
   @override
   Widget build(BuildContext context) {
-   
-
     return BlocProvider(
-      create: (context) =>
-          AddComplaintCubit()..determinePosition(context: context),
-      child: BlocConsumer<AddComplaintCubit, AddComplaintStates>(
+      create: (context) => AddCommunicationsCubit(),
+      child: BlocConsumer<AddCommunicationsCubit, AddCommunicationsStates>(
         listener: (context, state) {
-          if (state is AddComplaintSuccess2State) {
+          if (state is AddCommunicationsSuccess2State) {
             navigateAndFinish(context, DrawerScreen());
           }
-          if (state is AddComplaintErrorState) {
+          if (state is AddCommunicationsErrorState) {
             Fluttertoast.showToast(
                 msg: "${state.error}",
                 toastLength: Toast.LENGTH_SHORT,
@@ -50,8 +49,7 @@ class AddComplaint extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          
-          AddComplaintCubit cubit = AddComplaintCubit.get(context);
+          AddCommunicationsCubit cubit = AddCommunicationsCubit.get(context);
           var key = GlobalKey<FormState>();
           FirebaseMessaging.instance.getToken().then((value) {
             cubit.token = value!;
@@ -60,8 +58,8 @@ class AddComplaint extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
-              title: Text(title),
               backgroundColor: Colors.grey.shade100,
+              title: Text(title),
             ),
             body: Form(
               key: key,
@@ -74,7 +72,7 @@ class AddComplaint extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      if (state is AddComplaintImagePicLoadingState)
+                      if (state is AddCommunicationsImagePicLoadingState)
                         LinearProgressIndicator(
                           color: ColorManager.primary,
                           backgroundColor: ColorManager.white,
@@ -89,6 +87,91 @@ class AddComplaint extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton2(
+                                    isExpanded: true,
+                                    hint: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            LocaleKeys.Select_type_service.tr(),
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    items: servies
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ))
+                                        .toList(),
+                                    value: cubit.selectedValue,
+                                    onChanged: (value) {
+                                      cubit.changeSwitch(value!);
+                                    },
+                                    buttonStyleData: ButtonStyleData(
+                                      height: 50,
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.only(
+                                          left: 14, right: 14),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        border: Border.all(
+                                          width: 3,
+                                          color: ColorManager.white,
+                                        ),
+                                        color: ColorManager.primary,
+                                      ),
+                                      elevation: 2,
+                                    ),
+                                    dropdownStyleData: DropdownStyleData(
+                                        maxHeight: 200,
+                                        width: 450,
+                                        padding: null,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager.white,
+                                              width: 2),
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                          color: ColorManager.primary,
+                                        ),
+                                        elevation: 8,
+                                        offset: const Offset(5, 0),
+                                        scrollbarTheme: ScrollbarThemeData(
+                                          radius: const Radius.circular(40),
+                                          thickness:
+                                              MaterialStateProperty.all(6),
+                                          thumbVisibility:
+                                              MaterialStateProperty.all(true),
+                                        )),
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 40,
+                                      padding:
+                                          EdgeInsets.only(left: 14, right: 14),
+                                    ),
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 height: 10,
                               ),
@@ -126,9 +209,9 @@ class AddComplaint extends StatelessWidget {
                                               ),
                                             ))
                                         .toList(),
-                                    value: cubit.selectedValue,
+                                    value: cubit.selectedValue2,
                                     onChanged: (value) {
-                                      cubit.changeSwitch(value!);
+                                      cubit.changeSwitch2(value!);
                                     },
                                     buttonStyleData: ButtonStyleData(
                                       height: 50,
@@ -210,52 +293,6 @@ class AddComplaint extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
-                              ElevatedButton(
-                                  style: const ButtonStyle(
-                                      side: MaterialStatePropertyAll(BorderSide(
-                                          color: Colors.white, width: 3)),
-                                      minimumSize: MaterialStatePropertyAll(
-                                          Size(double.infinity, 50))),
-                                  onPressed: () {
-                                    cubit.getGeo();
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        LocaleKeys.add_location.tr(),
-                                        style: TextStyle(
-                                            color: ColorManager.white),
-                                      ),
-                                      Icon(
-                                          cubit.position?.latitude != null
-                                              ? Icons.check_circle
-                                              : Icons.location_on,
-                                          color: ColorManager.white),
-                                    ],
-                                  )),
-                              // ignore: unnecessary_null_comparison
-                              if (cubit.position?.latitude != null)
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      '${LocaleKeys.latitude.tr()} :${cubit.latitude}',
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.black54),
-                                    ),
-                                    Text(
-                                      '${LocaleKeys.longitude.tr()} :${cubit.longitude}',
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.black54),
-                                    ),
-                                  ],
-                                ),
-                              const SizedBox(
-                                height: 10,
-                              ),
                               TextFormField(
                                 controller: cubit.docController,
                                 maxLines: 8,
@@ -300,16 +337,14 @@ class AddComplaint extends StatelessWidget {
                                 onPressed: () {
                                   if (key.currentState!.validate()) {
                                     try {
-                                      cubit.addComplaint(
-                                          token: cubit.token,
-                                          userid: userid,
-                                          authority: data,
-                                          type: cubit.selectedValue!,
-                                          description: cubit.docController.text,
-                                          latitude:
-                                              '${cubit.position!.latitude}',
-                                          longitude:
-                                              '${cubit.position!.longitude}');
+                                      cubit.addCommunications(
+                                        token: cubit.token,
+                                        userid: userid,
+                                        authority: data,
+                                        type: cubit.selectedValue!,
+                                        description: cubit.docController.text,
+                                        social: cubit.selectedValue2!,
+                                      );
                                     } catch (e) {
                                       print(e);
                                       Fluttertoast.showToast(

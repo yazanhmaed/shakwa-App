@@ -7,7 +7,7 @@ class AddCyberCrimesLoadingState extends AddCyberCrimesStates {}
 class AddCyberCrimesSuccessState extends AddCyberCrimesStates {}
 
 class AddCyberCrimesErrorState extends AddCyberCrimesStates {
-  final String error;
+  final StateError error;
 
   AddCyberCrimesErrorState(this.error);
 }

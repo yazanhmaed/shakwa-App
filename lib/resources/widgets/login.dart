@@ -20,7 +20,7 @@ class LoginBuilder extends StatelessWidget {
     this.onPressed,
     required this.obscureText,
     this.onPressedobscureText,
-    this.onTap, required this.positive,
+    this.onTap, required this.positive, required this.anim,
   });
 
   final TextEditingController emailController;
@@ -29,6 +29,7 @@ class LoginBuilder extends StatelessWidget {
   final Function()? onPressedobscureText;
   final Function()? onTap;
   final bool obscureText;
+  final bool anim;
   final int positive;
 
   @override
@@ -37,7 +38,7 @@ class LoginBuilder extends StatelessWidget {
       position: positive,
       duration: const Duration(milliseconds: 1500),
       child: SlideAnimation(
-        horizontalOffset: -300,
+        horizontalOffset:anim==false? -300:300,
         child: FadeInAnimation(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

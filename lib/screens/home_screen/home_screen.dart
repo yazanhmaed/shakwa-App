@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:pro_test/screens/email_verification/email_verification.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/cubit.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
@@ -12,6 +13,7 @@ import '../../resources/components.dart';
 import '../../resources/string_manager.dart';
 import '../add_complaint/add_complaint.dart';
 import '../add_cybercrimes/add_cyber_crimes.dart';
+import '../communications/add_communications.dart';
 import 'components.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,17 +22,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FollowComplaintsCubit()
-        ..getUser()
-        ..n(),
+      create: (context) => FollowComplaintsCubit()..getUser(),
       child: BlocConsumer<FollowComplaintsCubit, FollowComplaintsStates>(
-        listener: (context, state) {
-          if (state is GetUserSuccessState) {
-            // CacheHelper.seveData(key: 'name', value: state.name).then((value) {
-            //   nameUser = CacheHelper.getData(key: 'name');
-            // });
-          }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           var cubit = FollowComplaintsCubit.get(context);
           return ConditionalBuilder(
@@ -56,7 +50,11 @@ class HomeScreen extends StatelessWidget {
               body: ConditionalBuilder(
                 condition: cubit.users.isNotEmpty,
                 fallback: (context) => Center(
-                  child: CircularProgressIndicator(),
+                  child: LoadingBouncingGrid.square(
+                    backgroundColor: ColorManager.primary,
+                    borderColor: ColorManager.white,
+                    size: 50.0,
+                  ),
                 ),
                 builder: (context) => Container(
                   height: double.infinity,
@@ -75,19 +73,39 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          navigateTo(
-                              context,
-                              index == 0
-                                  ? AddCyberCrimes(
-                                      userid: cubit.users[0].uId!,
-                                      title: cubit.name[index],
-                                      data: nameData[index],
-                                    )
-                                  : AddComplaint(
-                                      userid: cubit.users[0].uId!,
-                                      title: cubit.name[index],
-                                      data: nameData[index],
-                                    ));
+                          if (index == 0) {
+                            navigateTo(
+                                context,
+                                AddCyberCrimes(
+                                  userid: cubit.users[0].uId!,
+                                  title: cubit.name[index],
+                                  data: nameData[index],
+                                  cyberName: cubit.cyberName,
+                                  list: cubit.complaints[0]
+                                      ['AntiCyberCrimesUnit'],
+                                ));
+                          } else if (index == 4) {
+                            navigateTo(
+                                context,
+                                AddCommunications(
+                                  userid: cubit.users[0].uId!,
+                                  title: cubit.name[index],
+                                  data: nameData[index],
+                                  servies: cubit.communications,
+                                  list: cubit.complaints[0]
+                                      ['MinistryofCommunications'],
+                                ));
+                          } else {
+                            navigateTo(
+                                context,
+                                AddComplaint(
+                                  userid: cubit.users[0].uId!,
+                                  title: cubit.name[index],
+                                  data: nameData[index],
+                                  list: cubit.complaints[0]
+                                      ['${nameData[index]}'],
+                                ));
+                          }
                         },
                         child: Column(
                           children: [

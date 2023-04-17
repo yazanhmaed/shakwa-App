@@ -70,8 +70,9 @@ class LoginScreen extends StatelessWidget {
               height: double.infinity,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(AppString.background),
-                      fit: BoxFit.fill)),
+                image: AssetImage(AppString.background),
+                fit: BoxFit.fitHeight,
+              )),
               child: Form(
                   key: key,
                   child: SingleChildScrollView(
@@ -103,7 +104,10 @@ class LoginScreen extends StatelessWidget {
                           inactiveFgColor: Colors.white,
                           initialLabelIndex: cubit.positive,
                           totalSwitches: 2,
-                          labels:  [LocaleKeys.login.tr(), LocaleKeys.signup.tr()],
+                          labels: [
+                            LocaleKeys.login.tr(),
+                            LocaleKeys.signup.tr()
+                          ],
                           radiusStyle: true,
                           onToggle: (index) {
                             cubit.changecurrentSwitch(posit: index!);
@@ -111,6 +115,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         cubit.positive == 0
                             ? LoginBuilder(
+                                anim: draw!,
                                 positive: cubit.positive,
                                 onTap: () => cubit.signInWithGoogle(),
                                 obscureText: cubit.obscureText,
@@ -128,6 +133,7 @@ class LoginScreen extends StatelessWidget {
                                 },
                               )
                             : SignUpBuilder(
+                                anim: draw!,
                                 positive: cubit.positive,
                                 obscureText: cubit.obscureText,
                                 onPressedobscureText: () =>

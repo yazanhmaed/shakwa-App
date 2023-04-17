@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pro_test/resources/color_manager.dart';
-import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
 import 'package:pro_test/screens/follow_complaints/contact%20numbers.dart';
 import 'package:pro_test/screens/login_screen/cubit/cubit.dart';
 import 'package:pro_test/screens/login_screen/cubit/states.dart';
@@ -16,6 +15,7 @@ import '../../translations/locale_keys.g.dart';
 import '../follow_complaints/follow_complaints.dart';
 import '../follow_complaints/previous_complaints.dart';
 import '../login_screen/login_screen.dart';
+import 'drawer_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -106,29 +106,40 @@ class MenuScreen extends StatelessWidget {
                     ),
                     title: Text(LocaleKeys.logout.tr()),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextButton(
-                      onPressed: () async {
+                  Spacer(),
+                  if (draw == true)
+                    TextButton(
+                        onPressed: () async {
+                          cubit.changeDraw(dr: false, context: context);
+                          navigateAndFinish(context, DrawerScreen());
+                          // await cubit.changeDraw(context);
+                          // // print(context.locale);
+                          // // FollowComplaintsCubit.get(context).n();
+                        },
                         // ignore: unrelated_type_equality_checks
-                        await cubit.changeDraw(context);
+                        child: Text(
+                          'الانجليزية|En',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        )),
+                  if (draw == false)
+                    TextButton(
+                      onPressed: () async {
+                        // // ignore: unrelated_type_equality_checks
+                        cubit.changeDraw(dr: true, context: context);
                         navigateAndFinish(context, DrawerScreen());
-                        // print(context.locale);
-                        // FollowComplaintsCubit.get(context).n();
+                        // // print(context.locale);
+                        // // FollowComplaintsCubit.get(context).n();
                       },
                       // ignore: unrelated_type_equality_checks
-                      child: draw == true
-                          ? Text(
-                              'En|الانجليزية',
-                              style: TextStyle(color: Colors.white),
-                            )
-                          : Text(
-                              'Ar|العربية',
-                              style: TextStyle(color: Colors.white),
-                            )),
+                      child: Text(
+                        'Ar|العربية',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
                 ],
               ),

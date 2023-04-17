@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pro_test/models/add_complaint_model.dart';
 import 'package:pro_test/screens/follow_complaints/cubit/states.dart';
@@ -70,19 +69,7 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
     });
   }
 
-  // bool draw = false;
-   Future changeDraw(BuildContext context) async {
-    draw != false
-        ? await context.setLocale(Locale('en'))
-        : await context.setLocale(Locale('ar'));
-    draw = !draw!;
-    print(draw);
-    emit(ChangeDrawState());
-  }
-
-  List name = [];
-  Future n() async {
-    emit(GetnameLoadingState());
+  List 
     name = [
       LocaleKeys.Anti_Cyber_Crimes.tr(),
       LocaleKeys.Amman_City.tr(),
@@ -93,6 +80,85 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
       LocaleKeys.Miyahuna.tr(),
       LocaleKeys.Traffic_Department.tr(),
     ];
-    emit(GetnameState());
-  }
+
+  
+
+  List<String> cyberName = [
+    LocaleKeys.Facebook.tr(),
+    LocaleKeys.Instagram.tr(),
+    LocaleKeys.Web.tr(),
+    LocaleKeys.Ad.tr(),
+    LocaleKeys.other.tr(),
+  ];
+  List<String> communications = [
+    LocaleKeys.zain.tr(),
+    LocaleKeys.Orange.tr(),
+    LocaleKeys.Umniah.tr(),
+  ];
+  List complaints = [
+    {
+      'AntiCyberCrimesUnit': [
+        LocaleKeys.Hacking_personal_accounts.tr(),
+        LocaleKeys.Electronic_harassment.tr(),
+        LocaleKeys.privacy_personal_data.tr(),
+        LocaleKeys.Fraud_in_online_purchases.tr(),
+        LocaleKeys.Assault_and_defamation.tr(),
+        LocaleKeys.Impersonation_pseudonyms.tr(),
+        LocaleKeys.other.tr(),
+      ],
+      'AmmanCity': [
+        LocaleKeys.hole_in_the_street.tr(),
+        LocaleKeys.Pavement_problems.tr(),
+        LocaleKeys.illegal_construction.tr(),
+        LocaleKeys.Unlicensed_stores.tr(),
+        LocaleKeys.Demolition_and_construction.tr(),
+        LocaleKeys.Scattered_waste.tr(),
+        LocaleKeys.other.tr(),
+      ],
+      'ElectricPower': [
+        LocaleKeys.Electricity_theft.tr(),
+        LocaleKeys.street_lighting.tr(),
+        LocaleKeys.Electricity_poles.tr(),
+        LocaleKeys.electricity_network.tr(),
+        LocaleKeys.Frequent_power_outages.tr(),
+        LocaleKeys.High_electricity_bills.tr(),
+        LocaleKeys.other.tr(),
+      ],
+      'MinistryOfAgriculture': [
+        LocaleKeys.Water_and_soil_pollution.tr(),
+        LocaleKeys.harmful_pesticides.tr(),
+        LocaleKeys.Difficulty_accessing_markets.tr(),
+        LocaleKeys.health_and_quality.tr(),
+        LocaleKeys.other.tr(),
+      ],
+      'MinistryofCommunications': [
+        LocaleKeys.Service_quality_affected.tr(),
+        LocaleKeys.High_prices_for_services.tr(),
+        LocaleKeys.Poor_network_coverage.tr(),
+        LocaleKeys.customer_service.tr(),
+        LocaleKeys.other.tr(),
+      ],
+      'MinistryofEnvironment': [
+        LocaleKeys.blocking_trees.tr(),
+        LocaleKeys.pollution_from_vehicles.tr(),
+        LocaleKeys.resulting_from_factories.tr(),
+        LocaleKeys.cut_down_trees.tr(),
+        LocaleKeys.other.tr(),
+      ],
+      'Miyahuna': [
+        LocaleKeys.Broken_water_pipe.tr(),
+        LocaleKeys.presence_of_sewage.tr(),
+        LocaleKeys.Frequent_water_outages.tr(),
+        LocaleKeys.High_water_bills.tr(),
+        LocaleKeys.other.tr(),
+      ],
+      'TrafficDepartment': [
+        LocaleKeys.Car_accident.tr(),
+        LocaleKeys.damaged_cars.tr(),
+        LocaleKeys.Traffic_signal_malfunction.tr(),
+        LocaleKeys.Objection_traffic_violation.tr(),
+        LocaleKeys.other.tr(),
+      ],
+    },
+  ];
 }

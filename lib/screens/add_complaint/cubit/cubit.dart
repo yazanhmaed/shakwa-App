@@ -282,7 +282,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         animType: AnimType.bottomSlide,
         title: LocaleKeys.Location.tr(),
         desc: LocaleKeys.Location_services.tr(),
-        showCloseIcon: true,
+        showCloseIcon: false,
         btnCancelOnPress: () => navigateAndFinish(context, DrawerScreen()),
         btnOkOnPress: () => Geolocator.getCurrentPosition(),
         btnCancelText: LocaleKeys.cancel.tr(),

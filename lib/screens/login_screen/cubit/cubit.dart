@@ -210,12 +210,15 @@ class UserCubit extends Cubit<UserStates> {
     emit(ChangeobscureTextSuccessState());
   }
 
-  Future changeDraw(BuildContext context) async {
-    draw != false
+  bool? d;
+
+  Future changeDraw({required bool dr, required BuildContext context}) async {
+    draw = dr;
+    draw == false
         ? await context.setLocale(Locale('en'))
         : await context.setLocale(Locale('ar'));
-    draw = !draw!;
-    print(draw);
     emit(ChangeDrawState());
   }
+
+
 }

@@ -19,23 +19,18 @@ class AddCyberCrimes extends StatelessWidget {
       {super.key,
       required this.title,
       required this.data,
-      required this.userid});
+      required this.userid,
+      required this.cyberName,
+      required this.list});
   final String title;
   final String data;
   final String userid;
+  final List cyberName;
+  final List list;
 
   @override
   Widget build(BuildContext context) {
-    final List<String> items = [
-      'Item1',
-      'Item2',
-      'Item3',
-      'Item4',
-      'Item5',
-      'Item6',
-      'Item7',
-      'Item8',
-    ];
+ 
 
     return BlocProvider(
       create: (context) => AddCyberCrimesCubit(),
@@ -65,6 +60,7 @@ class AddCyberCrimes extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.grey.shade100,
               title: Text(title),
             ),
             body: Form(
@@ -101,13 +97,13 @@ class AddCyberCrimes extends StatelessWidget {
                                   child: DropdownButton2(
                                     isExpanded: true,
                                     hint: Row(
-                                      children: const [
+                                      children: [
                                         SizedBox(
                                           width: 4,
                                         ),
                                         Expanded(
                                           child: Text(
-                                            'Select Item',
+                                            LocaleKeys.Select_Social_Media.tr(),
                                             style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.white,
@@ -117,7 +113,7 @@ class AddCyberCrimes extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    items: items
+                                    items: cyberName
                                         .map((item) => DropdownMenuItem<String>(
                                               value: item,
                                               child: Text(
@@ -151,15 +147,18 @@ class AddCyberCrimes extends StatelessWidget {
                                     ),
                                     dropdownStyleData: DropdownStyleData(
                                         maxHeight: 200,
-                                        width: double.infinity,
+                                        width: 450,
                                         padding: null,
                                         decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager.white,
+                                              width: 2),
                                           borderRadius:
                                               BorderRadius.circular(14),
                                           color: ColorManager.primary,
                                         ),
                                         elevation: 8,
-                                        offset: const Offset(-20, 0),
+                                        offset: const Offset(5, 0),
                                         scrollbarTheme: ScrollbarThemeData(
                                           radius: const Radius.circular(40),
                                           thickness:
@@ -183,13 +182,13 @@ class AddCyberCrimes extends StatelessWidget {
                                   child: DropdownButton2(
                                     isExpanded: true,
                                     hint: Row(
-                                      children: const [
+                                      children: [
                                         SizedBox(
                                           width: 4,
                                         ),
                                         Expanded(
                                           child: Text(
-                                            'Select Item',
+                                            LocaleKeys.Select_complaint.tr(),
                                             style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.white,
@@ -199,7 +198,7 @@ class AddCyberCrimes extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    items: items
+                                    items: list
                                         .map((item) => DropdownMenuItem<String>(
                                               value: item,
                                               child: Text(
@@ -233,15 +232,18 @@ class AddCyberCrimes extends StatelessWidget {
                                     ),
                                     dropdownStyleData: DropdownStyleData(
                                         maxHeight: 200,
-                                        width: double.infinity,
+                                        width: 450,
                                         padding: null,
                                         decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorManager.white,
+                                              width: 2),
                                           borderRadius:
                                               BorderRadius.circular(14),
                                           color: ColorManager.primary,
                                         ),
                                         elevation: 8,
-                                        offset: const Offset(-20, 0),
+                                        offset: const Offset(5, 0),
                                         scrollbarTheme: ScrollbarThemeData(
                                           radius: const Radius.circular(40),
                                           thickness:
@@ -384,8 +386,8 @@ class AddCyberCrimes extends StatelessWidget {
                                     } catch (e) {
                                       print(e);
                                       Fluttertoast.showToast(
-                                          msg:
-                                              LocaleKeys.the_data_correctly.tr(),
+                                          msg: LocaleKeys.the_data_correctly
+                                              .tr(),
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
@@ -396,7 +398,7 @@ class AddCyberCrimes extends StatelessWidget {
                                   }
                                 },
                                 child: Text(
-                                 LocaleKeys.send_complaint.tr(),
+                                  LocaleKeys.send_complaint.tr(),
                                   style: TextStyle(color: ColorManager.white),
                                 ),
                               ),

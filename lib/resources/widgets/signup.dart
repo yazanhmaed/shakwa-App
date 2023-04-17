@@ -16,7 +16,7 @@ class SignUpBuilder extends StatelessWidget {
     this.onPressed,
     this.onPressedobscureText,
     required this.obscureText,
-    required this.positive,
+    required this.positive, required this.anim,
   });
   final TextEditingController nameController;
   final TextEditingController emailController;
@@ -24,6 +24,7 @@ class SignUpBuilder extends StatelessWidget {
   final Function()? onPressed;
   final Function()? onPressedobscureText;
   final bool obscureText;
+  final bool anim;
   final int positive;
 
   @override
@@ -32,7 +33,7 @@ class SignUpBuilder extends StatelessWidget {
       position: positive,
       duration: const Duration(milliseconds: 1500),
       child: SlideAnimation(
-        horizontalOffset: 300,
+        horizontalOffset:anim==true? -300:300,
         child: FadeInAnimation(
           child: Container(
             padding: const EdgeInsets.all(20),
