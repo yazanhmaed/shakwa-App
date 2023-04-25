@@ -65,7 +65,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         date: date,
       );
 
-      emit(AddComplaintSuccessState());
+      //   emit(AddComplaintSuccessState());
     }).catchError((onError) {
       emit(AddComplaintErrorState(onError));
     });
@@ -119,7 +119,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         color: 1,
         date: Timestamp.now(),
       );
-      emit(AddComplaintSuccess2State());
+      // emit(AddComplaintSuccess2State());
     }).catchError((onError) {
       emit(AddComplaintError2State());
     });
@@ -161,7 +161,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
           authority: authority,
           color: color,
           date: date);
-      emit(AddComplaintSuccessState());
+      // emit(AddComplaintSuccessState());
     }).catchError((onError) {
       print(onError);
       emit(AddComplaintErrorState(onError));
@@ -202,7 +202,9 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         .collection('complaint/')
         .doc(id2)
         .set(model.toMap())
-        .then((value) {});
+        .then((value) {
+      emit(AddComplaintSuccessState());
+    });
   }
 
   void addComplaint({

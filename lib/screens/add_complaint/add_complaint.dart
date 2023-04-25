@@ -28,14 +28,12 @@ class AddComplaint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-
     return BlocProvider(
       create: (context) =>
           AddComplaintCubit()..determinePosition(context: context),
       child: BlocConsumer<AddComplaintCubit, AddComplaintStates>(
         listener: (context, state) {
-          if (state is AddComplaintSuccess2State) {
+          if (state is AddComplaintSuccessState) {
             navigateAndFinish(context, DrawerScreen());
           }
           if (state is AddComplaintErrorState) {
@@ -50,7 +48,6 @@ class AddComplaint extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          
           AddComplaintCubit cubit = AddComplaintCubit.get(context);
           var key = GlobalKey<FormState>();
           FirebaseMessaging.instance.getToken().then((value) {

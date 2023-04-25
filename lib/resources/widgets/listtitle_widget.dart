@@ -86,7 +86,7 @@ class ListWidget extends StatelessWidget {
       case 2:
         return Colors.amber;
       case 3:
-        return Colors.blue;
+        return Colors.green;
       default:
         return Colors.green;
     }

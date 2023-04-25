@@ -61,7 +61,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         date: date,
       );
 
-      emit(AddCyberCrimesSuccessState());
+      //emit(AddCyberCrimesSuccessState());
     }).catchError((onError) {
       emit(AddCyberCrimesErrorState(onError));
     });
@@ -115,7 +115,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         color: 1,
         date: Timestamp.now(),
       );
-      emit(AddCyberCrimesSuccess2State());
+     // emit(AddCyberCrimesSuccess2State());
     }).catchError((onError) {
       emit(AddCyberCrimesError2State());
     });
@@ -157,9 +157,9 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
           authority: authority,
           color: color,
           date: date);
-      emit(AddCyberCrimesSuccessState());
+      // emit(AddCyberCrimesSuccessState());
     }).catchError((onError) {
-      print(onError);
+      // print(onError);
       emit(AddCyberCrimesErrorState(onError));
     });
   }
@@ -198,7 +198,9 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         .collection('complaint/')
         .doc(id2)
         .set(model.toMap())
-        .then((value) {});
+        .then((value) {
+          emit(AddCyberCrimesSuccessState());
+        });
   }
 
   void addCyberCrimes({

@@ -36,7 +36,7 @@ class AddCyberCrimes extends StatelessWidget {
       create: (context) => AddCyberCrimesCubit(),
       child: BlocConsumer<AddCyberCrimesCubit, AddCyberCrimesStates>(
         listener: (context, state) {
-          if (state is AddCyberCrimesSuccess2State) {
+          if (state is AddCyberCrimesSuccessState) {
             navigateAndFinish(context, DrawerScreen());
           }
           if (state is AddCyberCrimesErrorState) {
