@@ -4,10 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:pro_test/resources/bloc.dart';
 import 'package:pro_test/resources/cache_helper.dart';
 import 'package:pro_test/resources/components.dart';
+import 'package:pro_test/resources/location/geo.dart';
 import 'package:pro_test/resources/theme_manager.dart';
 import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
 import 'package:pro_test/screens/login_screen/login_screen.dart';
@@ -21,7 +21,8 @@ void main() async {
 
   await Firebase.initializeApp();
   await CacheHelper.init();
-  await Geolocator.requestPermission();
+  Geo.determinePosition();
+  // await Geolocator.requestPermission();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   // ignore: deprecated_member_use
@@ -72,7 +73,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: getApplicationTheme(),
-      home:  startWidget,
+      home: startWidget,
     );
   }
 }

@@ -7,6 +7,9 @@ class FollowComplaintsLoadingState extends FollowComplaintsStates {}
 class FollowComplaintsSuccessState extends FollowComplaintsStates {}
 
 class FollowComplaintsErrorState extends FollowComplaintsStates {}
+class FollowRemoveSuccessState extends FollowComplaintsStates {}
+
+class FollowRemoveErrorState extends FollowComplaintsStates {}
 
 class FollowComplaintsLoading2State extends FollowComplaintsStates {}
 

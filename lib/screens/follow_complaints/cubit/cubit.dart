@@ -44,6 +44,24 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
     });
   }
 
+  void removeComplaint({
+    required String id2,
+  }) {
+    FirebaseFirestore.instance
+        .collection('Users/')
+        .doc(uId)
+        .collection('complaint')
+        .doc(id2)
+        .delete()
+        .then((value) {
+      getFollowComplaints();
+      emit(FollowRemoveSuccessState());
+    }).catchError((onError) {
+      print(onError);
+      emit(FollowRemoveErrorState());
+    });
+  }
+
   List<UserModel> users = [];
 
   void getUser() async {
@@ -69,19 +87,16 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
     });
   }
 
-  List 
-    name = [
-      LocaleKeys.Anti_Cyber_Crimes.tr(),
-      LocaleKeys.Amman_City.tr(),
-      LocaleKeys.Electric_Power.tr(),
-      LocaleKeys.Agriculture.tr(),
-      LocaleKeys.Communications.tr(),
-      LocaleKeys.Environment.tr(),
-      LocaleKeys.Miyahuna.tr(),
-      LocaleKeys.Traffic_Department.tr(),
-    ];
-
-  
+  List name = [
+    LocaleKeys.Anti_Cyber_Crimes.tr(),
+    LocaleKeys.Amman_City.tr(),
+    LocaleKeys.Electric_Power.tr(),
+    LocaleKeys.Agriculture.tr(),
+    LocaleKeys.Communications.tr(),
+    LocaleKeys.Environment.tr(),
+    LocaleKeys.Miyahuna.tr(),
+    LocaleKeys.Traffic_Department.tr(),
+  ];
 
   List<String> cyberName = [
     LocaleKeys.Facebook.tr(),

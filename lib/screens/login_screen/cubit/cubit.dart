@@ -175,7 +175,7 @@ class UserCubit extends Cubit<UserStates> {
           fontSize: 16.0);
       emit(EmailVerifySuccessState());
     }).catchError((onError) {
-      emit(EmailVerifyErrorState());
+      //emit(EmailVerifyErrorState());
     });
   }
 

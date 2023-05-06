@@ -23,7 +23,11 @@ class EmailVerificationScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => UserCubit(),
       child: BlocConsumer<UserCubit, UserStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is UserSuccessState) {
+            navigateAndFinish(context, DrawerScreen());
+          }
+        },
         builder: (context, state) {
           final googleSignIn = GoogleSignIn();
           var cubit = UserCubit.get(context);
@@ -84,14 +88,25 @@ class EmailVerificationScreen extends StatelessWidget {
                               ButtomCustom(
                                 text: LocaleKeys.Send.tr(),
                                 color: ColorManager.amber,
-                                onPressed: () => cubit.getEmailVerify(),
+                                onPressed: () {
+                                  cubit.getEmailVerify();
+                                  CacheHelper.removeData(key: 'name');
+                                  CacheHelper.removeData(key: 'uId').then(
+                                      (value) {
+                                        navigateAndFinish(
+                                          context, LoginScreen());
+                                      });
+                                },
                               ),
-                              ButtomCustom(
-                                text: LocaleKeys.ok.tr(),
-                                color: ColorManager.amber,
-                                onPressed: () =>
-                                    navigateAndFinish(context, DrawerScreen()),
-                              ),
+                              // ButtomCustom(
+                              //   text: LocaleKeys.ok.tr(),
+                              //   color: ColorManager.amber,
+                              //   onPressed: () {
+                              //     cubit.userLogin(
+                              //         email: cubit.emailController.text,
+                              //         password: cubit.passwordController.text);
+                              //   },
+                              // ),
                             ],
                           )
                         ],

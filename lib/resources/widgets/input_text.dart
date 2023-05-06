@@ -12,7 +12,8 @@ class InputText extends StatelessWidget {
     required this.controller,
     this.obscureText,
     required this.labelText,
-    this.type, this.suffixIcon,
+    this.type,
+    this.suffixIcon,
   });
   final String hintText;
   final String labelText;
@@ -30,7 +31,7 @@ class InputText extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         keyboardType: type,
-        cursorColor: ColorManager.white,
+        cursorColor: ColorManager.amber,
         obscureText: obscureText ?? false,
         style: TextStyle(color: ColorManager.black),
         controller: controller,

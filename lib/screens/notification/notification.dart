@@ -35,6 +35,6 @@ void firebaseMessagingListener({required BuildContext context}) {
         
         btnOkOnPress: (){},
       ).show();
-    print('notification from foreground2 : ${notificationMessage.title}');
+    // print('notification from foreground2 : ${notificationMessage.title}');
   });
 }

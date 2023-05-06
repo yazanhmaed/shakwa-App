@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -30,14 +31,33 @@ class AddCyberCrimes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
-
     return BlocProvider(
       create: (context) => AddCyberCrimesCubit(),
       child: BlocConsumer<AddCyberCrimesCubit, AddCyberCrimesStates>(
         listener: (context, state) {
           if (state is AddCyberCrimesSuccessState) {
-            navigateAndFinish(context, DrawerScreen());
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.success,
+              borderSide: BorderSide(
+                color: ColorManager.primary,
+                width: 2,
+              ),
+
+              buttonsBorderRadius: const BorderRadius.all(
+                Radius.circular(2),
+              ),
+              dismissOnTouchOutside: false,
+              dismissOnBackKeyPress: false,
+
+              headerAnimationLoop: false,
+              animType: AnimType.bottomSlide,
+              // title: '${message.notification!.title}',
+              desc: 'تم ارسال الشكوى بنجاح',
+              //showCloseIcon: true,
+
+              btnOkOnPress: () => navigateAndFinish(context, DrawerScreen()),
+            ).show();
           }
           if (state is AddCyberCrimesErrorState) {
             Fluttertoast.showToast(
@@ -297,6 +317,7 @@ class AddCyberCrimes extends StatelessWidget {
                               ),
                               TextFormField(
                                 controller: cubit.linkController,
+                                cursorColor: ColorManager.white,
                                 maxLines: 1,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -332,6 +353,7 @@ class AddCyberCrimes extends StatelessWidget {
                               ),
                               TextFormField(
                                 controller: cubit.docController,
+                                cursorColor: ColorManager.white,
                                 maxLines: 8,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
