@@ -2,23 +2,31 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../app_user/models/add_complaint_model.dart';
-import '../../app_user/screens/follow_complaints/cubit/cubit.dart';
-import '../color_manager.dart';
 
-class SheetBuild extends StatelessWidget {
-  const SheetBuild(
+import '../../../resources/color_manager.dart';
+import '../../../resources/widgets/button_custom.dart';
+import '../../models/add_communications_model.dart';
+import 'cubit/cubit.dart';
+
+class SheetCommunicationsBuild extends StatelessWidget {
+  const SheetCommunicationsBuild(
       {super.key,
       required this.scrollController,
-      required this.followComplaints,
-      required this.cubit});
+      required this.communicationsModel,
+      required this.cubit,});
 
   final ScrollController scrollController;
-  //double bottomSheetOffset,
-  final AddComplaintModel followComplaints;
-  final FollowComplaintsCubit cubit;
+
+  final CommunicationsModel communicationsModel;
+  final CommunicationsCubit cubit;
   @override
   Widget build(BuildContext context) {
+    String text = '';
+    if (communicationsModel.color == 1) {
+      text = 'Accept Request';
+    } else if (communicationsModel.color == 2) {
+      text = 'Completed';
+    }
     return Material(
       child: SizedBox(
         height: double.infinity,
@@ -45,7 +53,7 @@ class SheetBuild extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        ' ${followComplaints.id2!}',
+                        ' ${communicationsModel.id2!}',
                         style:
                             const TextStyle(fontSize: 20, color: Colors.white),
                       ),
@@ -64,23 +72,23 @@ class SheetBuild extends StatelessWidget {
                     ],
                   ),
                 )),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Center(
                   child: FancyShimmerImage(
-                    imageUrl: followComplaints.image!,
+                    imageUrl: communicationsModel.image!,
                     shimmerBaseColor: Colors.grey,
                     shimmerHighlightColor: Colors.white54,
-                    height: 350,
+                    height: 650,
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
-                Divider(
-                  color: ColorManager.primary,
-                  thickness: 2,
+                Divider(color: ColorManager.primary, thickness: 2),
+                const SizedBox(
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -91,7 +99,7 @@ class SheetBuild extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        ' ${followComplaints.type!}',
+                        ' ${communicationsModel.type!}',
                         style:
                             const TextStyle(fontSize: 20, color: Colors.black),
                       ),
@@ -111,10 +119,9 @@ class SheetBuild extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          ' ${followComplaints.description!}',
-                          maxLines: 5,
+                          ' ${communicationsModel.description!}',
                           style: const TextStyle(
-                              fontSize: 14, color: Colors.black, height: 2),
+                              fontSize: 15, color: Colors.black, height: 2),
                         ),
                       ),
                     ],
@@ -132,10 +139,38 @@ class SheetBuild extends StatelessWidget {
                         width: 10,
                       ),
                       Text(DateFormat.yMd()
-                          .format(followComplaints.date!.toDate())),
+                          .format(communicationsModel.date!.toDate())),
                     ],
                   ),
                 ),
+                Divider(color: ColorManager.primary, thickness: 2),
+                const SizedBox(
+                  height: 10,
+                ),
+                if (communicationsModel.color! < 3)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ButtomCustom(
+                          onPressed: () {
+                            cubit.updateData(
+                              id: communicationsModel.id!,
+                              color: communicationsModel.color!,
+                              id2: '${communicationsModel.id2}',
+                              token: communicationsModel.token!,
+                              description: communicationsModel.description!,
+                              state: communicationsModel.state!,
+                            );
+                            Navigator.pop(context);
+                          },
+                          text: text,
+                          color: ColorManager.primary,
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        )),
+                  ),
                 const SizedBox(
                   height: 20,
                 ),

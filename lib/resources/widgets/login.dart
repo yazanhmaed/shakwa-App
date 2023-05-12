@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pro_test/resources/components.dart';
-import 'package:pro_test/screens/password_reset/password_reset.dart';
+import 'package:pro_test/app_user/screens/password_reset/password_reset.dart';
 import 'package:text_divider/text_divider.dart';
 
 import '../../translations/locale_keys.g.dart';

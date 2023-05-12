@@ -9,9 +9,9 @@ import 'package:pro_test/resources/cache_helper.dart';
 import 'package:pro_test/resources/components.dart';
 import 'package:pro_test/resources/location/geo.dart';
 import 'package:pro_test/resources/theme_manager.dart';
-import 'package:pro_test/screens/drawer_screen/drawer_screen.dart';
-import 'package:pro_test/screens/login_screen/login_screen.dart';
-import 'package:pro_test/screens/notification/notification.dart';
+import 'package:pro_test/app_user/screens/drawer_screen/drawer_screen.dart';
+import 'package:pro_test/app_user/screens/login_screen/login_screen.dart';
+import 'package:pro_test/app_user/screens/notification/notification.dart';
 import 'package:pro_test/translations/codegen_loader.g.dart';
 
 void main() async {

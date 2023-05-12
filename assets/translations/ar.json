@@ -92,5 +92,8 @@
   "Umniah": "أمنية",
   "Orange": "اورنج",
   "Select_Social_Media": "حدد وسائل التواصل الاجتماعي",
-  "Select_type_service": "حدد نوع الخدمه"
+  "Select_type_service": "حدد نوع الخدمه",
+  "Email_already_exists": "البريد الالكتروني موجود بالفعل ",
+  "Password_is_less ": "كلمه المرور اقل من ٦ حروف ",
+  "Complaint_sent_successfully": "تم إرسال الشكوى بنجاح"
 }

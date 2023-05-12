@@ -2,6 +2,7 @@ class AppString {
   // basic elements
   static const medicalAcademy = 'Surgical Academy';
   static const background = 'assets/images/Background3.png';
+  static const background2 = 'assets/images/Background.png';
   static const homeBackground = 'assets/images/homeBackground.png';
   static const homeBackground2 = 'assets/images/homeBackground2.png';
   static const complaintBackground = 'assets/images/complaintBackground.png';

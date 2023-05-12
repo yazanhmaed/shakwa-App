@@ -2,23 +2,45 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../app_user/models/add_complaint_model.dart';
-import '../../app_user/screens/follow_complaints/cubit/cubit.dart';
-import '../color_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SheetBuild extends StatelessWidget {
-  const SheetBuild(
+import '../../../resources/color_manager.dart';
+import '../../../resources/widgets/button_custom.dart';
+import '../../models/cyber_crimes_model.dart';
+
+import 'cubit/cubit.dart';
+
+class SheetCyberBuild extends StatelessWidget {
+  const SheetCyberBuild(
       {super.key,
       required this.scrollController,
-      required this.followComplaints,
+      required this.cyberCrimesModel,
       required this.cubit});
 
   final ScrollController scrollController;
   //double bottomSheetOffset,
-  final AddComplaintModel followComplaints;
-  final FollowComplaintsCubit cubit;
+  final CyberCrimesModel cyberCrimesModel;
+  final CyberCrimesCubit cubit;
   @override
   Widget build(BuildContext context) {
+   
+    Future<void> openMap() async {
+      final Uri url = Uri.parse('${cyberCrimesModel.link}');
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        // ignore: avoid_print
+        print('Erorr');
+        print('$url');
+      }
+    }
+
+    String text = '';
+    if (cyberCrimesModel.color == 1) {
+      text = 'Accept Request';
+    } else if (cyberCrimesModel.color == 2) {
+      text = 'Completed';
+    }
     return Material(
       child: SizedBox(
         height: double.infinity,
@@ -45,7 +67,7 @@ class SheetBuild extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        ' ${followComplaints.id2!}',
+                        ' ${cyberCrimesModel.id2!}',
                         style:
                             const TextStyle(fontSize: 20, color: Colors.white),
                       ),
@@ -64,23 +86,23 @@ class SheetBuild extends StatelessWidget {
                     ],
                   ),
                 )),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Center(
                   child: FancyShimmerImage(
-                    imageUrl: followComplaints.image!,
+                    imageUrl: cyberCrimesModel.image!,
                     shimmerBaseColor: Colors.grey,
                     shimmerHighlightColor: Colors.white54,
-                    height: 350,
+                    height: 650,
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
-                Divider(
-                  color: ColorManager.primary,
-                  thickness: 2,
+                Divider(color: ColorManager.primary, thickness: 2),
+                const SizedBox(
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -91,7 +113,7 @@ class SheetBuild extends StatelessWidget {
                         width: 10,
                       ),
                       Text(
-                        ' ${followComplaints.type!}',
+                        ' ${cyberCrimesModel.type!}',
                         style:
                             const TextStyle(fontSize: 20, color: Colors.black),
                       ),
@@ -111,10 +133,9 @@ class SheetBuild extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          ' ${followComplaints.description!}',
-                          maxLines: 5,
+                          ' ${cyberCrimesModel.description!}',
                           style: const TextStyle(
-                              fontSize: 14, color: Colors.black, height: 2),
+                              fontSize: 15, color: Colors.black, height: 2),
                         ),
                       ),
                     ],
@@ -132,10 +153,42 @@ class SheetBuild extends StatelessWidget {
                         width: 10,
                       ),
                       Text(DateFormat.yMd()
-                          .format(followComplaints.date!.toDate())),
+                          .format(cyberCrimesModel.date!.toDate())),
+                      const Spacer(),
+                      ElevatedButton(
+                          onPressed: () => openMap(),
+                          child: const Text('Link')),
                     ],
                   ),
                 ),
+                Divider(color: ColorManager.primary, thickness: 2),
+                const SizedBox(
+                  height: 10,
+                ),
+                if (cyberCrimesModel.color! < 3)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ButtomCustom(
+                          onPressed: () {
+                            cubit.updateData(
+                              id: cyberCrimesModel.id!,
+                              color: cyberCrimesModel.color!,
+                              id2: '${cyberCrimesModel.id2}',
+                              token: cyberCrimesModel.token!,
+                              description: cyberCrimesModel.description!,
+                              state: cyberCrimesModel.state!,
+                            );
+                            Navigator.pop(context);
+                          },
+                          text: text,
+                          color: ColorManager.primary,
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        )),
+                  ),
                 const SizedBox(
                   height: 20,
                 ),

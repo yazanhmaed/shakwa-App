@@ -11,7 +11,7 @@ void navigateTo(context, widget) => Navigator.push(
       ),
     );
 
-void navigateAndFinish(
+ navigateAndFinish(
   context,
   widget,
 ) =>
@@ -72,6 +72,7 @@ showAlertDialog(BuildContext context, Function()? onPressed) {
 }
 
 String? uId;
+String? uIdA;
 String? token = '';
 String? email = '';
 String? passLo = '';

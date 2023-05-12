@@ -97,4 +97,7 @@ abstract class LocaleKeys {
   static const Orange = 'Orange';
   static const Select_Social_Media = 'Select_Social_Media';
   static const Select_type_service = 'Select_type_service';
+  static const Email_already_exists = "Email_already_exists";
+  static const Password_is_less = "Password_is_less";
+  static const Complaint_sent_successfully= "Complaint_sent_successfully";
 }

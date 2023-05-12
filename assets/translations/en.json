@@ -92,5 +92,8 @@
   "Umniah": "Umniah",
   "Orange": "Orange",
   "Select_Social_Media": "Select Social Media",
-  "Select_type_service": "Select the type of service"
+  "Select_type_service": "Select the type of service",
+  "Email_already_exists": "Email already exists",
+  "Password_is_less ": "Password is less than 6 characters long",
+  "Complaint_sent_successfully": "Complaint sent successfully"
 }

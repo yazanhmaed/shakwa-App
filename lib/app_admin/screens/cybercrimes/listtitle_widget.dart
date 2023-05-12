@@ -1,14 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:pro_test/translations/locale_keys.g.dart';
+import 'package:intl/intl.dart';
 
-import '../../app_user/models/add_complaint_model.dart';
+import '../../models/cyber_crimes_model.dart';
 
+class ListCyberWidget extends StatelessWidget {
+  const ListCyberWidget({super.key, required this.eventModel});
 
-class ListWidget extends StatelessWidget {
-  const ListWidget({super.key, required this.followComplaints});
-
-  final AddComplaintModel followComplaints;
+  final CyberCrimesModel eventModel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class ListWidget extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: _getBGClr(followComplaints.color),
+        color: _getBGClr(eventModel.color),
       ),
       child: Row(
         children: [
@@ -27,7 +25,7 @@ class ListWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  followComplaints.description!,
+                  eventModel.type!,
                   maxLines: 2,
                   style: const TextStyle(
                       fontSize: 16,
@@ -45,12 +43,14 @@ class ListWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      '${DateFormat.yMd().format(followComplaints.date!.toDate())} ',
-                      style: TextStyle(fontSize: 15, color: Colors.grey[100]),
+                      '${DateFormat.yMd()
+                        .format(eventModel.date!.toDate())} ',
+                      style: TextStyle(fontSize: 13, color: Colors.grey[100]),
                     )
                   ],
                 ),
                 const SizedBox(height: 12),
+               
               ],
             ),
           )),
@@ -63,11 +63,7 @@ class ListWidget extends StatelessWidget {
           RotatedBox(
             quarterTurns: 3,
             child: Text(
-              followComplaints.state == 'Waiting'
-                  ? LocaleKeys.waiting.tr()
-                  : followComplaints.state == 'Prosses'
-                      ? LocaleKeys.Prosses.tr()
-                      : LocaleKeys.Success.tr(),
+              eventModel.state!,
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.grey[200],
@@ -89,7 +85,7 @@ class ListWidget extends StatelessWidget {
       case 3:
         return Colors.green;
       default:
-        return Colors.green;
+        return Colors.blue;
     }
   }
 }
