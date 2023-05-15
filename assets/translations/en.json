@@ -95,5 +95,12 @@
   "Select_type_service": "Select the type of service",
   "Email_already_exists": "Email already exists",
   "Password_is_less ": "Password is less than 6 characters long",
-  "Complaint_sent_successfully": "Complaint sent successfully"
+  "Complaint_sent_successfully": "Complaint sent successfully",
+  "HI": "HI",
+  "help_you": "Please let us know how we can help you.",
+  "following_options": "Please choose one of the following options:",
+  "How_to_send_a_complaint": "How to send a complaint ?",
+  "How_to_track_a_complaint": "How to track a complaint ?",
+  "How_to_delete_the_complaint": "How to delete the complaint ?",
+  "help": "Help"
 }

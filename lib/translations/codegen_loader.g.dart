@@ -111,7 +111,14 @@ class CodegenLoader extends AssetLoader {
     "Select_type_service": "حدد نوع الخدمه",
     "Email_already_exists": "البريد الالكتروني موجود بالفعل ",
     "Password_is_less": "كلمه المرور اقل من ٦ حروف",
-    "Complaint_sent_successfully": "تم إرسال الشكوى بنجاح"
+    "Complaint_sent_successfully": "تم إرسال الشكوى بنجاح",
+    "HI": "مرحبا",
+    "help_you": "يرجى اخبارنا بالطريقة التي يمكننا مساعدتك بها .",
+    "following_options": "الرجاء اختيار واحد من الخيارات التالية:",
+    "How_to_send_a_complaint": "كيف ترسل شكوى؟",
+    "How_to_track_a_complaint": "كيف يتم متابعة الشكوى؟",
+    "How_to_delete_the_complaint": "كيف تحذف الشكوى؟",
+    "help": "مساعدة"
   };
   static const Map<String, dynamic> en = {
     "email": "Email",
@@ -212,7 +219,14 @@ class CodegenLoader extends AssetLoader {
     "Select_type_service": "Select the type of service",
     "Email_already_exists": "Email already exists",
     "Password_is_less": "Password is less than 6 characters long",
-    "Complaint_sent_successfully": "Complaint sent successfully"
+    "Complaint_sent_successfully": "Complaint sent successfully",
+    "HI": "HI",
+    "help_you": "Please let us know how we can help you.",
+    "following_options": "Please choose one of the following options:",
+    "How_to_send_a_complaint": "How to send a complaint ?",
+    "How_to_track_a_complaint": "How to track a complaint ?",
+    "How_to_delete_the_complaint": "How to delete the complaint ?",
+    "help": "Help"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

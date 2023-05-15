@@ -2,7 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../resources/color_manager.dart';
 import '../../../resources/widgets/button_custom.dart';
@@ -23,15 +23,18 @@ class SheetCyberBuild extends StatelessWidget {
   final CyberCrimesCubit cubit;
   @override
   Widget build(BuildContext context) {
-   
-    Future<void> openMap() async {
-      final Uri url = Uri.parse('${cyberCrimesModel.link}');
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        // ignore: avoid_print
-        print('Erorr');
-        print('$url');
+ 
+
+    Future<void> openUrl() async {
+      var nativeUrl =
+          "${cyberCrimesModel.link}";
+      var webUrl = "${cyberCrimesModel.link}";
+
+      try {
+        await launchUrlString(nativeUrl, mode: LaunchMode.externalApplication);
+      } catch (e) {
+        print(e);
+        await launchUrlString(webUrl, mode: LaunchMode.platformDefault);
       }
     }
 
@@ -48,6 +51,7 @@ class SheetCyberBuild extends StatelessWidget {
           height: double.infinity,
           color: ColorManager.grey1.withOpacity(0.7),
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +160,7 @@ class SheetCyberBuild extends StatelessWidget {
                           .format(cyberCrimesModel.date!.toDate())),
                       const Spacer(),
                       ElevatedButton(
-                          onPressed: () => openMap(),
+                          onPressed: () => openUrl(),
                           child: const Text('Link')),
                     ],
                   ),

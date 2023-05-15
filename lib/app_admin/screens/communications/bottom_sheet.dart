@@ -34,6 +34,7 @@ class SheetCommunicationsBuild extends StatelessWidget {
           height: double.infinity,
           color: ColorManager.grey1.withOpacity(0.7),
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,

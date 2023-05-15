@@ -4,13 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
 
-
-
 import '../../app_admin/models/event.dart';
 import '../../app_admin/screens/home_screen/cubit/cubit.dart';
 import '../color_manager.dart';
 import '../widgets/button_custom.dart';
-
 
 class SheetBuild extends StatelessWidget {
   const SheetBuild(
@@ -25,19 +22,6 @@ class SheetBuild extends StatelessWidget {
   final ComplaintsCubit cubit;
   @override
   Widget build(BuildContext context) {
-    // Future<void> openMap() async {
-    //   final Uri url = Uri.parse(
-    //       'https://www.google.com/maps/search/?api=1&query=${complaintsModel.latitude},${complaintsModel.longitude}');
-
-    //   if (await canLaunchUrl(url)) {
-    //     await launchUrl(url);
-    //   } else {
-    //     // ignore: avoid_print
-    //     print('Erorr');
-    //     print('$url');
-    //   }
-    // }
-
     openMapsSheet(context) async {
       try {
         final coords = Coords(double.parse(complaintsModel.latitude!),
@@ -92,6 +76,7 @@ class SheetBuild extends StatelessWidget {
           height: double.infinity,
           color: ColorManager.grey1.withOpacity(0.7),
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,

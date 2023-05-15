@@ -14,6 +14,7 @@ import '../../../resources/string_manager.dart';
 import '../add_complaint/add_complaint.dart';
 import '../add_cybercrimes/add_cyber_crimes.dart';
 import '../communications/add_communications.dart';
+import '../support/support.dart';
 import 'components.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -46,6 +47,13 @@ class HomeScreen extends StatelessWidget {
                   AppString.barTitle,
                   style: TextStyle(fontFamily: 'HSNNaskh', fontSize: 35),
                 ),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        navigateTo(context, SupportScreen());
+                      },
+                      icon: Icon(Icons.support_agent,size: 35,))
+                ],
               ),
               body: ConditionalBuilder(
                 condition: cubit.users.isNotEmpty,

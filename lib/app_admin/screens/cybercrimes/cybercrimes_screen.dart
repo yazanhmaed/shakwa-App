@@ -12,7 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../resources/cache_helper.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
-import '../login_screen/login_screen.dart';
+import '../layout/layout_screen.dart';
 import '../pie/pie_chart.dart';
 import 'bottom_sheet_cyber.dart';
 import 'cubit/cubit.dart';
@@ -67,7 +67,7 @@ class _CyberCrimesScreenState extends State<CyberCrimesScreen> {
                 leading: IconButton(
                     onPressed: () {
                       CacheHelper.removeData(key: 'uIdA').then((value) =>
-                          navigateAndFinish(context, const LoginAdminScreen()));
+                          navigateAndFinish(context, const LayoutScreen()));
                     },
                     icon: const Icon(Icons.logout)),
               ),
@@ -93,7 +93,7 @@ class _CyberCrimesScreenState extends State<CyberCrimesScreen> {
                 leading: IconButton(
                     onPressed: () {
                       CacheHelper.removeData(key: 'uIdA').then((value) =>
-                          navigateAndFinish(context, const LoginAdminScreen()));
+                          navigateAndFinish(context, const LayoutScreen()));
                     },
                     icon: const Icon(Icons.logout)),
                 actions: [
@@ -132,6 +132,7 @@ class _CyberCrimesScreenState extends State<CyberCrimesScreen> {
                       onRefresh: () =>
                           navigateAndFinish(context, const CyberCrimesScreen()),
                       child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                           itemCount: cubit.cyber.length,
                           itemBuilder: (context, index) {
                             // ignore: unrelated_type_equality_checks

@@ -99,5 +99,12 @@ abstract class LocaleKeys {
   static const Select_type_service = 'Select_type_service';
   static const Email_already_exists = "Email_already_exists";
   static const Password_is_less = "Password_is_less";
-  static const Complaint_sent_successfully= "Complaint_sent_successfully";
+  static const Complaint_sent_successfully = "Complaint_sent_successfully";
+  static const HI = "HI";
+  static const help_you = "help_you";
+  static const following_options = "following_options";
+  static const How_to_send_a_complaint = "How_to_send_a_complaint";
+  static const How_to_track_a_complaint = "How_to_track_a_complaint";
+  static const How_to_delete_the_complaint = "How_to_delete_the_complaint";
+  static const help = "help";
 }

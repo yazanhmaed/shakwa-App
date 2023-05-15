@@ -12,7 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../resources/cache_helper.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
-import '../login_screen/login_screen.dart';
+import '../layout/layout_screen.dart';
 import '../pie/pie_chart.dart';
 
 import 'bottom_sheet.dart';
@@ -68,7 +68,7 @@ class _CommunicationsScreenState extends State<CommunicationsScreen> {
                 leading: IconButton(
                     onPressed: () {
                       CacheHelper.removeData(key: 'uIdA').then((value) =>
-                          navigateAndFinish(context, const LoginAdminScreen()));
+                          navigateAndFinish(context, const LayoutScreen()));
                     },
                     icon: const Icon(Icons.logout)),
               ),
@@ -94,7 +94,7 @@ class _CommunicationsScreenState extends State<CommunicationsScreen> {
                 leading: IconButton(
                     onPressed: () {
                       CacheHelper.removeData(key: 'uIdA').then((value) =>
-                          navigateAndFinish(context, const LoginAdminScreen()));
+                          navigateAndFinish(context, const LayoutScreen()));
                     },
                     icon: const Icon(Icons.logout)),
                 actions: [
@@ -133,6 +133,7 @@ class _CommunicationsScreenState extends State<CommunicationsScreen> {
                       onRefresh: () => navigateAndFinish(
                           context, const CommunicationsScreen()),
                       child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                           itemCount: cubit.communications.length,
                           itemBuilder: (context, index) {
                             // ignore: unrelated_type_equality_checks

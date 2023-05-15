@@ -129,6 +129,7 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
   var picker = ImagePicker();
   Future<void> getImage() async {
     final pickerFile = await picker.pickImage(source: ImageSource.camera);
+      emit(AddComplaintImagelOADINGState());
     if (pickerFile != null) {
       storieImage = File(pickerFile.path);
 
@@ -147,6 +148,7 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
     required String description,
     required String state,
   }) {
+    emit(AddComplaintImagelOADINGState());
     FirebaseStorage.instance
         .ref()
         .child(

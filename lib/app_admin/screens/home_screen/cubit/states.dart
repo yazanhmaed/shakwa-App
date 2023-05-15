@@ -14,6 +14,7 @@ class ComplaintsUpdateErrorState extends ComplaintsStates {}
 
 class ComplaintsUpdateError2State extends ComplaintsStates {}
 
+class AddComplaintImagelOADINGState extends ComplaintsStates {}
 class AddComplaintImagePicSuccessState extends ComplaintsStates {}
 
 class AddComplaintImagePicErrorState extends ComplaintsStates {}

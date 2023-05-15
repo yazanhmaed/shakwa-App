@@ -3,11 +3,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pro_test/app_admin/screens/login_screen/login_screen.dart';
 
 import 'package:pro_test/app_user/screens/drawer_screen/drawer_screen.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../../../app_admin/screens/layout/layout_screen.dart';
 import '../../../resources/cache_helper.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
@@ -144,7 +144,7 @@ class LoginScreen extends StatelessWidget {
                                         cubit.passwordController.text ==
                                             '0000') {
                                       navigateAndFinish(
-                                          context, LoginAdminScreen());
+                                          context, LayoutScreen());
                                     } else {
                                       cubit.userLogin(
                                           email: cubit.emailController.text,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'color_manager.dart';
 
-void navigateTo(context, widget) => Navigator.push(
+ navigateTo(context, widget) => Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => widget,
@@ -77,6 +77,8 @@ String? token = '';
 String? email = '';
 String? passLo = '';
 String nameUser = '';
+
 bool? draw;
+
 
 List<String>? favoriteList = [];

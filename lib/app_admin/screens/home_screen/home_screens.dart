@@ -14,7 +14,7 @@ import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
 import '../../../resources/widgetAdmin/bottom_sheet.dart';
 import '../../../resources/widgetAdmin/listtitle_widget.dart';
-import '../login_screen/login_screen.dart';
+import '../layout/layout_screen.dart';
 import '../pie/pie_chart.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -67,7 +67,7 @@ class _HomeScreensState extends State<HomeScreens> {
                 leading: IconButton(
                     onPressed: () {
                       CacheHelper.removeData(key: 'uIdA').then((value) =>
-                          navigateAndFinish(context, const LoginAdminScreen()));
+                          navigateAndFinish(context, const LayoutScreen()));
                     },
                     icon: const Icon(Icons.logout)),
               ),
@@ -92,7 +92,7 @@ class _HomeScreensState extends State<HomeScreens> {
                 leading: IconButton(
                     onPressed: () {
                       CacheHelper.removeData(key: 'uIdA').then((value) =>
-                          navigateAndFinish(context, const LoginAdminScreen()));
+                          navigateAndFinish(context, const LayoutScreen()));
                     },
                     icon: const Icon(Icons.logout)),
                 actions: [
@@ -126,89 +126,98 @@ class _HomeScreensState extends State<HomeScreens> {
                     lastDate: DateTime.now(),
                     events: cubit.dateTime,
                   ),
-                  Expanded(
-                    child: RefreshIndicator(
-                      color: ColorManager.primary,
-                      onRefresh: () =>
-                          navigateAndFinish(context, const HomeScreens()),
-                      child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          itemCount: cubit.complaintsModel.length,
-                          itemBuilder: (context, index) {
-                            // ignore: unrelated_type_equality_checks
-                            if ((cubit.complaintsModel[index].date!
-                                        .toDate()
-                                        .day ==
-                                    selectedDate!.day) &&
-                                (cubit.complaintsModel[index].date!
-                                        .toDate()
-                                        .month ==
-                                    selectedDate!.month) &&
-                                (cubit.complaintsModel[index].date!
-                                        .toDate()
-                                        .year ==
-                                    selectedDate!.year)) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 1200),
-                                child: SlideAnimation(
-                                  horizontalOffset: 300,
-                                  child: FadeInAnimation(
-                                    child: GestureDetector(
-                                      onLongPress: () => AwesomeDialog(
-                                        context: context,
-                                        dialogType: DialogType.question,
-                                        borderSide: BorderSide(
-                                          color: ColorManager.primary,
-                                          width: 2,
-                                        ),
-                                        buttonsBorderRadius:
-                                            const BorderRadius.all(
-                                          Radius.circular(2),
-                                        ),
-                                        dismissOnTouchOutside: true,
-                                        dismissOnBackKeyPress: false,
-                                        headerAnimationLoop: false,
-                                        animType: AnimType.bottomSlide,
-                                        title: 'Delete',
-                                        desc: 'Delete The Complaints',
-                                        showCloseIcon: false,
-                                        btnCancelOnPress: () {},
-                                        btnOkColor: ColorManager.primary,
-                                        btnOkOnPress: () =>
-                                            cubit.removeComplaint(
-                                                id2: cubit
-                                                    .complaintsModel[index]
-                                                    .id2!),
-                                      ).show(),
-                                      onTap: () {
-                                        showFlexibleBottomSheet(
-                                          minHeight: 0,
-                                          initHeight: 0.9,
-                                          maxHeight: 0.9,
+                  ConditionalBuilder(
+                    condition: state is! AddComplaintImagelOADINGState,
+                    fallback: (context) => Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.primary,
+                      ),
+                    ),
+                    builder: (context) => Expanded(
+                      child: RefreshIndicator(
+                        color: ColorManager.primary,
+                        onRefresh: () =>
+                            navigateAndFinish(context, const HomeScreens()),
+                        child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            itemCount: cubit.complaintsModel.length,
+                            itemBuilder: (context, index) {
+                              // ignore: unrelated_type_equality_checks
+                              if ((cubit.complaintsModel[index].date!
+                                          .toDate()
+                                          .day ==
+                                      selectedDate!.day) &&
+                                  (cubit.complaintsModel[index].date!
+                                          .toDate()
+                                          .month ==
+                                      selectedDate!.month) &&
+                                  (cubit.complaintsModel[index].date!
+                                          .toDate()
+                                          .year ==
+                                      selectedDate!.year)) {
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 1200),
+                                  child: SlideAnimation(
+                                    horizontalOffset: 300,
+                                    child: FadeInAnimation(
+                                      child: GestureDetector(
+                                        onLongPress: () => AwesomeDialog(
                                           context: context,
-                                          builder: (context, scrollController,
-                                                  bottomSheetOffset) =>
-                                              SheetBuild(
-                                            complaintsModel:
-                                                cubit.complaintsModel[index],
-                                            scrollController: scrollController,
-                                            cubit: cubit,
+                                          dialogType: DialogType.question,
+                                          borderSide: BorderSide(
+                                            color: ColorManager.primary,
+                                            width: 2,
                                           ),
-                                          isExpand: false,
-                                        );
-                                      },
-                                      child: ListWidget(
-                                          complaintsModel:
-                                              cubit.complaintsModel[index]),
+                                          buttonsBorderRadius:
+                                              const BorderRadius.all(
+                                            Radius.circular(2),
+                                          ),
+                                          dismissOnTouchOutside: true,
+                                          dismissOnBackKeyPress: false,
+                                          headerAnimationLoop: false,
+                                          animType: AnimType.bottomSlide,
+                                          title: 'Delete',
+                                          desc: 'Delete The Complaints',
+                                          showCloseIcon: false,
+                                          btnCancelOnPress: () {},
+                                          btnOkColor: ColorManager.primary,
+                                          btnOkOnPress: () =>
+                                              cubit.removeComplaint(
+                                                  id2: cubit
+                                                      .complaintsModel[index]
+                                                      .id2!),
+                                        ).show(),
+                                        onTap: () {
+                                          showFlexibleBottomSheet(
+                                            minHeight: 0,
+                                            initHeight: 0.9,
+                                            maxHeight: 0.9,
+                                            context: context,
+                                            builder: (context, scrollController,
+                                                    bottomSheetOffset) =>
+                                                SheetBuild(
+                                              complaintsModel:
+                                                  cubit.complaintsModel[index],
+                                              scrollController:
+                                                  scrollController,
+                                              cubit: cubit,
+                                            ),
+                                            isExpand: false,
+                                          );
+                                        },
+                                        child: ListWidget(
+                                            complaintsModel:
+                                                cubit.complaintsModel[index]),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            }),
+                      ),
                     ),
                   ),
                 ],
