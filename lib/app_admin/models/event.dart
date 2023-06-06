@@ -10,8 +10,11 @@ class ComplaintsModel {
   String? longitude;
   String? state;
   String? token;
+  String? note;
   int? color;
+  int? rating;
   Timestamp? date;
+  Timestamp? timeSpent;
   ComplaintsModel({
     this.id,
     this.id2,
@@ -22,8 +25,11 @@ class ComplaintsModel {
     this.longitude,
     this.state,
     this.token,
+    this.note,
     this.color,
+    this.rating,
     this.date,
+    this.timeSpent,
   });
   ComplaintsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -35,8 +41,11 @@ class ComplaintsModel {
     longitude = json['longitude'];
     state = json['state'];
     token = json['token'];
+    note = json['note'];
     color = json['color'];
+    rating = json['rating'];
     date = json['date'];
+    timeSpent = json['timeSpent'];
   }
 
   Map<String, dynamic> toMap() {
@@ -50,8 +59,11 @@ class ComplaintsModel {
       'longitude': longitude,
       'state': state,
       'token': token,
+      'note': note,
       'color': color,
+      'rating': rating,
       'date': date,
+      'timeSpent': timeSpent,
     };
   }
 }

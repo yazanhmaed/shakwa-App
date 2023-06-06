@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pro_test/app_user/screens/login_screen/cubit/states.dart';
-import 'package:pro_test/translations/locale_keys.g.dart';
 
 
 import '../../../../resources/components.dart';
+import '../../../../translations/locale_keys.g.dart';
 import '../../../models/user_model.dart';
 
 class UserCubit extends Cubit<UserStates> {
@@ -29,8 +29,9 @@ class UserCubit extends Cubit<UserStates> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
+      print(value.user!.email);
       getUser(uId: value.user!.uid);
-      emit(UserSuccessState(value.user!.uid));
+      emit(UserSuccessState(value.user!.uid, value.user!.email!));
     }).catchError((onError) {
       print(onError);
       emit(UserErrorState());
@@ -43,7 +44,6 @@ class UserCubit extends Cubit<UserStates> {
     required String uId,
   }) async {
     users = [];
-    //emit(GetUserLoadingState());
     await FirebaseFirestore.instance
         .collection('Users/')
         .doc('$uId')
@@ -52,16 +52,13 @@ class UserCubit extends Cubit<UserStates> {
         .then((value) {
       for (var e in value.docs) {
         users.add(UserModel.fromJson(e.data()));
-        // print(e.data());
       }
       nameUser = users[0].name!;
       n = users[0].name!;
-      //print(users);
 
       emit(GetUserSuccessState(users[0].name!));
     }).catchError((onError) {
       print(onError);
-      //emit(GetUserErrorState());
     });
   }
 
@@ -71,12 +68,9 @@ class UserCubit extends Cubit<UserStates> {
     required String password,
     required String token,
   }) {
-    //emit(AddUserLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      // print(value.user!.email);
-      //  print(value.user!.uid);
       userCreate(
         uId: value.user!.uid,
         name: name,
@@ -102,7 +96,6 @@ class UserCubit extends Cubit<UserStates> {
       email: email,
       token: token,
     );
-    //  emit(AddCreateUserLoadingState());
     FirebaseFirestore.instance
         .collection('Users')
         .doc(uId)
@@ -113,7 +106,6 @@ class UserCubit extends Cubit<UserStates> {
       emit(AddCreateUserSuccessState());
     }).catchError((onError) {
       print(onError);
-      // emit(AddCreateUserErrorState());
     });
   }
 
@@ -146,18 +138,21 @@ class UserCubit extends Cubit<UserStates> {
         name: value.user!.displayName!,
         token: token,
       );
+      admin = value.user!.email!;
       getUser(uId: value.user!.uid);
-      emit(UserSuccessState(value.user!.uid));
+    
+      emit(UserSuccessState(
+        value.user!.uid,
+        value.user!.email!,
+      ));
     }).catchError((onError) {
       print(onError);
-      //emit(UserErrorState());
     });
   }
 
   Future logout() async {
     FirebaseAuth.instance.signOut().then((value) {
       googleSignIn.disconnect();
-      //   print(token);
       emit(LogoutSuccessState());
     }).catchError((onError) {
       print(onError);
@@ -177,7 +172,6 @@ class UserCubit extends Cubit<UserStates> {
           fontSize: 16.0);
       emit(EmailVerifySuccessState());
     }).catchError((onError) {
-      //emit(EmailVerifyErrorState());
     });
   }
 
@@ -208,7 +202,6 @@ class UserCubit extends Cubit<UserStates> {
   bool obscureText = true;
   void changeobscureText() {
     obscureText = !obscureText;
-    //  print(obscureText);
     emit(ChangeobscureTextSuccessState());
   }
 

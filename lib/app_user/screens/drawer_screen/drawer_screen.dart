@@ -2,15 +2,15 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:pro_test/resources/color_manager.dart';
-import 'package:pro_test/resources/components.dart';
-import 'package:pro_test/app_user/screens/drawer_screen/menu_screen.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/previous_complaints.dart';
-import 'package:pro_test/app_user/screens/home_screen/home_screen.dart';
-import 'package:pro_test/app_user/screens/login_screen/login_screen.dart';
 
+import '../../../resources/color_manager.dart';
+import '../../../resources/components.dart';
 import '../follow_complaints/follow_complaints.dart';
+import '../follow_complaints/previous_complaints.dart';
+import '../home_screen/home_screen.dart';
+import '../login_screen/login_screen.dart';
 import '../notification/notification.dart';
+import 'menu_screen.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -30,12 +30,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
             builder: (context) => LoginScreen(),
           ));
         } else if (event.notification!.body == 'Prosses') {
-          // print('prosses');
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => FollowComplaints(),
           ));
         } else if (event.notification!.body == 'Success') {
-          //print('Success');
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PreviousComplaints(),
           ));

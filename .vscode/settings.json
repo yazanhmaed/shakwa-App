@@ -1,5 +1,6 @@
 {
     "editor.codeActionsOnSave": {
         "source.fixAll": true
-    }
+    },
+    "dart.flutterSdkPath": "C:\\Users\\yhmae\\Downloads\\Compressed\\flutter_windows_3.10.3-stable\\flutter"
 }

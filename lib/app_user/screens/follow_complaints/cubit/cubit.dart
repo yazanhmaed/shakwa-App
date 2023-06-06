@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:pro_test/app_user/screens/follow_complaints/cubit/states.dart';
 
 
@@ -18,6 +18,10 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
   List<AddComplaintModel> followComplaints = [];
   List<AddComplaintModel> prossesComplaints = [];
   List<AddComplaintModel> completeComplaints = [];
+
+  int? rate;
+
+    TextEditingController noteController = TextEditingController();
 
   Future getFollowComplaints() async {
     followComplaints = [];
@@ -43,6 +47,41 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
     }).catchError((onError) {
       print(onError);
       emit(FollowComplaintsErrorState());
+    });
+  }
+
+  void updateRating({
+    required int rating,
+    required String id2,
+    required String id,
+    required String note,
+  }) {
+    FirebaseFirestore.instance
+        .collection('competentAuthority')
+        .doc(id)
+        .collection('complaint')
+        .doc(id2)
+        .update({
+      'rating': rating,
+      'note': note,
+    }).then((value) {
+      emit(ComplaintsUpdateSuccessState());
+    }).catchError((onError) {
+      print(onError);
+      emit(ComplaintsUpdateErrorState());
+    }).then((value) {
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uId)
+          .collection('complaint')
+          .doc(id2)
+          .update({
+        'rating': rating,
+        'note': note,
+      });
+    }).catchError((onError){
+      print(onError);
+      emit(ComplaintsUpdateErrorState());
     });
   }
 
@@ -77,10 +116,8 @@ class FollowComplaintsCubit extends Cubit<FollowComplaintsStates> {
         .then((value) {
       for (var e in value.docs) {
         users.add(UserModel.fromJson(e.data()));
-        //print(e.data());
       }
       nameUser = users[0].name!;
-      // print(users);
 
       emit(GetUserSuccessState(users[0].name!));
     }).catchError((onError) {

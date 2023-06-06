@@ -5,9 +5,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pro_test/resources/color_manager.dart';
-import 'package:pro_test/resources/components.dart';
 
+
+import '../../../resources/color_manager.dart';
+import '../../../resources/components.dart';
 import '../../../resources/string_manager.dart';
 import '../../../resources/values_manager.dart';
 import '../../../translations/locale_keys.g.dart';
@@ -52,9 +53,7 @@ class AddCommunications extends StatelessWidget {
 
               headerAnimationLoop: false,
               animType: AnimType.bottomSlide,
-              // title: '${message.notification!.title}',
               desc: LocaleKeys.Complaint_sent_successfully.tr(),
-              //showCloseIcon: true,
 btnOkText: LocaleKeys.ok.tr(),
               btnOkOnPress: () => navigateAndFinish(context, DrawerScreen()),
             ).show();
@@ -74,9 +73,7 @@ btnOkText: LocaleKeys.ok.tr(),
           AddCommunicationsCubit cubit = AddCommunicationsCubit.get(context);
           var key = GlobalKey<FormState>();
           FirebaseMessaging.instance.getToken().then((value) {
-            cubit.token = value!;
-            //  print(value);
-          });
+            cubit.token = value!;          });
 
           return Scaffold(
             appBar: AppBar(
@@ -361,6 +358,7 @@ btnOkText: LocaleKeys.ok.tr(),
                                   if (key.currentState!.validate()) {
                                     try {
                                       cubit.addCommunications(
+                                        competent: data,
                                         token: cubit.token,
                                         userid: userid,
                                         authority: data,

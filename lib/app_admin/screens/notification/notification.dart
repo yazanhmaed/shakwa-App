@@ -40,7 +40,7 @@ Future<void> sendNotification({
 
   dio.options.headers['Content-Type'] = 'application/json';
   dio.options.headers["Authorization"] =
-      'key=AAAA7lPATic:APA91bFqjqocdRlh0uFQcl3dkWrQSh-wQdh6BpixPPJM7LDp6sdhM6YF2Ks3o6izBkiG21zRzVp61Y7HPhIWZivuKv3hZzgwO2oBnvoFIRZmCxFpPLSLdbF9IApnv7xhcL0NVSnJ_dnA';
+      'key=AAAA3Q2Z8Cc:APA91bGCQqMevA2AgFC-QxfkZ01KYEK_nwBMStbglTTM9NRIoa6LYuEDUhTnyfGWnpIepZOVOnKN_MWwujproeviC9sMKQmBSv4CrWpKDyjicVP5C1gRGJQV3YgfpmK_SLbNFLrspVu3';
 
   try {
     final response = await dio.post(postUrl, data: data);

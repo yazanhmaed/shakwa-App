@@ -3,14 +3,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pro_test/resources/components.dart';
-import 'package:pro_test/app_user/screens/drawer_screen/drawer_screen.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/cubit/cubit.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/cubit/states.dart';
+import 'package:pro_test/app_user/screens/view_complaints/view_complaints.dart';
 
-import '../../../resources/widgets/bottom_sheet.dart';
-import '../../../resources/widgets/listtitle_widget.dart';
+import '../../../resources/components.dart';
+import '../../../resources/widgets/list_title_widget.dart';
 import '../../../translations/locale_keys.g.dart';
+import '../drawer_screen/drawer_screen.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class FollowComplaints extends StatelessWidget {
   const FollowComplaints({super.key});
@@ -42,7 +42,6 @@ class FollowComplaints extends StatelessWidget {
                     child: FadeInAnimation(
                       child: GestureDetector(
                         onTap: () {
-                          //  print(cubit.prossesComplaints[index].description);
                           showFlexibleBottomSheet(
                             minHeight: 0,
                             initHeight: 0.9,
@@ -50,7 +49,7 @@ class FollowComplaints extends StatelessWidget {
                             context: context,
                             builder: (context, scrollController,
                                     bottomSheetOffset) =>
-                                SheetBuild(
+                                InfoScreen(
                               followComplaints: cubit.prossesComplaints[index],
                               scrollController: scrollController,
                               cubit: cubit,

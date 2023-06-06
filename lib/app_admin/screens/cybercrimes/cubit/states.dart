@@ -5,6 +5,8 @@ class CyberCrimesInitialState extends CyberCrimesStates {}
 class CyberCrimesLoadingState extends CyberCrimesStates {}
 
 class CyberCrimesSuccessState extends CyberCrimesStates {}
+class ChangeDrawState extends CyberCrimesStates {}
+class ComplainChangeSwitchState extends CyberCrimesStates {}
 
 class CyberCrimesErrorState extends CyberCrimesStates {
   final StateError error;

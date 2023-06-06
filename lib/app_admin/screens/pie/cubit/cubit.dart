@@ -48,7 +48,6 @@ class ChartCubit extends Cubit<ChartStates> {
         .then((value) {
       for (var e in value.docs) {
         chartModel.add(ComplaintsModel.fromJson(e.data()));
-        //  print(e.data());
       }
       for (var element in chartModel) {
         if (element.date!.toDate().month == 1) {

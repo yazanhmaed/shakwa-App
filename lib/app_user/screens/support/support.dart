@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pro_test/app_user/screens/support/cubit/states.dart';
-import 'package:pro_test/resources/color_manager.dart';
 
+
+import '../../../resources/color_manager.dart';
 import '../../../resources/widgets/support_widget.dart';
 import '../../../translations/locale_keys.g.dart';
+import '../login_screen/support/cubit/states.dart';
 import 'cubit/cubit.dart';
 
 class SupportScreen extends StatelessWidget {
@@ -16,10 +17,12 @@ class SupportScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => SupportCubit()..getWidet(),
       child: BlocConsumer<SupportCubit, SupportStates>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is AddSupportSuccessState) {
-            SupportCubit.get(context)
-                .sendMessege(text: state.text, context: context);
+            await Future.delayed(const Duration(milliseconds: 800), () {
+              SupportCubit.get(context)
+                  .sendMessege(text: state.text, context: context);
+            });
           }
         },
         builder: (context, state) {

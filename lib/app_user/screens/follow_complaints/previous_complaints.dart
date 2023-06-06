@@ -4,16 +4,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/cubit/cubit.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/cubit/states.dart';
+import 'package:pro_test/app_user/screens/view_complaints/view_complaints.dart';
 
 import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
 
-import '../../../resources/widgets/bottom_sheet.dart';
-import '../../../resources/widgets/listtitle_widget.dart';
+import '../../../resources/widgets/list_title_widget.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../drawer_screen/drawer_screen.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class PreviousComplaints extends StatelessWidget {
   const PreviousComplaints({super.key});
@@ -25,6 +25,9 @@ class PreviousComplaints extends StatelessWidget {
       child: BlocConsumer<FollowComplaintsCubit, FollowComplaintsStates>(
         listener: (context, state) {
           if (state is FollowRemoveSuccessState) {
+            navigateAndFinish(context, PreviousComplaints());
+          }
+          if (state is ComplaintsUpdateSuccessState) {
             navigateAndFinish(context, PreviousComplaints());
           }
         },
@@ -63,10 +66,12 @@ class PreviousComplaints extends StatelessWidget {
                             dismissOnBackKeyPress: false,
                             headerAnimationLoop: false,
                             animType: AnimType.bottomSlide,
-                            title: 'Delete',
-                            desc: 'Delete The Complaints',
+                            title: LocaleKeys.delete.tr(),
+                            desc: LocaleKeys.delete_the_complaints.tr(),
                             showCloseIcon: false,
                             btnCancelOnPress: () {},
+                            btnOkText: LocaleKeys.ok.tr(),
+                            btnCancelText: LocaleKeys.cancel.tr(),
                             btnOkColor: ColorManager.primary,
                             btnOkOnPress: () => cubit.removeComplaint(
                                 id2: cubit.completeComplaints[index].id2!),
@@ -81,7 +86,7 @@ class PreviousComplaints extends StatelessWidget {
                             context: context,
                             builder: (context, scrollController,
                                     bottomSheetOffset) =>
-                                SheetBuild(
+                                InfoScreen(
                               followComplaints: cubit.completeComplaints[index],
                               scrollController: scrollController,
                               cubit: cubit,

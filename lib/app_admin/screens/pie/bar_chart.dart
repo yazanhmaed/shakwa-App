@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../resources/color_manager.dart';
+import '../../../translations/locale_keys.g.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -84,40 +86,40 @@ class BarChartsState extends State<BarCharts> {
                     String monthTime;
                     switch (group.x) {
                       case 0:
-                        monthTime = 'January ';
+                        monthTime = LocaleKeys.January.tr();
                         break;
                       case 1:
-                        monthTime = 'February ';
+                        monthTime = LocaleKeys.February.tr();
                         break;
                       case 2:
-                        monthTime = 'March';
+                        monthTime = LocaleKeys.March.tr();
                         break;
                       case 3:
-                        monthTime = 'April ';
+                        monthTime = LocaleKeys.April.tr();
                         break;
                       case 4:
-                        monthTime = 'May  ';
+                        monthTime = LocaleKeys.May.tr();
                         break;
                       case 5:
-                        monthTime = 'June  ';
+                        monthTime = LocaleKeys.June.tr();
                         break;
                       case 6:
-                        monthTime = 'July  ';
+                        monthTime = LocaleKeys.July.tr();
                         break;
                       case 7:
-                        monthTime = 'August  ';
+                        monthTime = LocaleKeys.August.tr();
                         break;
                       case 8:
-                        monthTime = 'September ';
+                        monthTime = LocaleKeys.September.tr();
                         break;
                       case 9:
-                        monthTime = 'October ';
+                        monthTime = LocaleKeys.October.tr();
                         break;
                       case 10:
-                        monthTime = 'November ';
+                        monthTime = LocaleKeys.November.tr();
                         break;
                       case 11:
-                        monthTime = 'December ';
+                        monthTime = LocaleKeys.December.tr();
                         break;
 
                       default:
@@ -200,8 +202,8 @@ class BarChartsState extends State<BarCharts> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          const Text(
-                            'Monthly Complaints',
+                          Text(
+                            LocaleKeys.Monthly.tr(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,

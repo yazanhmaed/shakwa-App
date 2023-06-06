@@ -14,7 +14,6 @@ class AddCyberCrimesErrorState extends AddCyberCrimesStates {
 
 class AddCyberCrimesLoading2State extends AddCyberCrimesStates {}
 
-class AddCyberCrimesSuccess2State extends AddCyberCrimesStates {}
 
 class AddCyberCrimesError2State extends AddCyberCrimesStates {}
 
@@ -24,7 +23,7 @@ class AddCyberCrimesImagePicSuccessState extends AddCyberCrimesStates {}
 
 class AddComplainImagePicErrorState extends AddCyberCrimesStates {}
 
-class AddComplainGeolocatorState extends AddCyberCrimesStates {}
 
 class AddComplainChangeSwitchState extends AddCyberCrimesStates {}
 class AddComplainChangeSwitch2State extends AddCyberCrimesStates {}
+

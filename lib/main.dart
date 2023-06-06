@@ -15,6 +15,7 @@ import 'package:pro_test/app_user/screens/notification/notification.dart';
 import 'package:pro_test/translations/codegen_loader.g.dart';
 
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(messageHandler);
@@ -22,7 +23,6 @@ void main() async {
   await Firebase.initializeApp();
   await CacheHelper.init();
   Geo.determinePosition();
-  // await Geolocator.requestPermission();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   // ignore: deprecated_member_use
@@ -34,6 +34,7 @@ void main() async {
   } else {
     widget = LoginScreen();
   }
+  
   // ignore: deprecated_member_use
   BlocOverrides.runZoned(
     () {
@@ -61,7 +62,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(context.locale);
-    // ignore: unrelated_type_equality_checks
     if (context.locale == Locale('en')) {
       draw = false;
     } else {

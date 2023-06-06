@@ -61,16 +61,16 @@ dependencies:
   firebase_messaging: ^14.4.0
   dio: ^5.1.1
   awesome_dialog: ^3.0.2
-  easy_localization: ^3.0.1
   fancy_shimmer_image: ^2.0.2
   url_launcher: ^6.1.10
   loading_animations: ^2.2.0
   fl_chart: ^0.61.0
   map_launcher: ^2.5.0+1
   flutter_svg: ^2.0.5
-  calendar_appbar: ^0.0.6
-  intl: ^0.17.0
   video_player: ^2.6.1
+  flutter_rating_bar: ^4.0.1
+  intl: ^0.18.0
+  easy_localization: ^3.0.0
   
 dev_dependencies:
   flutter_test:
@@ -117,12 +117,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Phallskhodkar
-      fonts:
-        - asset: assets/fonts/phallskhodkar.ttf
-    - family: ShekariFont
-      fonts:
-        - asset: assets/fonts/ShekariFont.ttf
     - family: HSNNaskh
       fonts:
         - asset: assets/fonts/HSNNaskh.ttf

@@ -5,15 +5,16 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pro_test/resources/color_manager.dart';
-import 'package:pro_test/resources/components.dart';
 import 'package:pro_test/app_user/screens/add_complaint/cubit/cubit.dart';
-import 'package:pro_test/app_user/screens/add_complaint/cubit/states.dart';
 
+
+import '../../../resources/color_manager.dart';
+import '../../../resources/components.dart';
 import '../../../resources/string_manager.dart';
 import '../../../resources/values_manager.dart';
 import '../../../translations/locale_keys.g.dart';
 import '../drawer_screen/drawer_screen.dart';
+import 'cubit/states.dart';
 
 class AddComplaint extends StatelessWidget {
   const AddComplaint(
@@ -51,9 +52,7 @@ class AddComplaint extends StatelessWidget {
 
               headerAnimationLoop: false,
               animType: AnimType.bottomSlide,
-              // title: '${message.notification!.title}',
               desc: LocaleKeys.Complaint_sent_successfully.tr(),
-              //showCloseIcon: true,
 btnOkText: LocaleKeys.ok.tr(),
               btnOkOnPress: () => navigateAndFinish(context, DrawerScreen()),
             ).show();
@@ -74,7 +73,6 @@ btnOkText: LocaleKeys.ok.tr(),
           var key = GlobalKey<FormState>();
           FirebaseMessaging.instance.getToken().then((value) {
             cubit.token = value!;
-            //  print(value);
           });
 
           return Scaffold(
@@ -321,6 +319,7 @@ btnOkText: LocaleKeys.ok.tr(),
                                   if (key.currentState!.validate()) {
                                     try {
                                       cubit.addComplaint(
+                                        competent: data,
                                           token: cubit.token,
                                           userid: userid,
                                           authority: data,

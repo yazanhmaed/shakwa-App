@@ -16,7 +16,8 @@ class SignUpBuilder extends StatelessWidget {
     this.onPressed,
     this.onPressedobscureText,
     required this.obscureText,
-    required this.positive, required this.anim,
+    required this.positive,
+    required this.anim,
   });
   final TextEditingController nameController;
   final TextEditingController emailController;
@@ -33,7 +34,7 @@ class SignUpBuilder extends StatelessWidget {
       position: positive,
       duration: const Duration(milliseconds: 1500),
       child: SlideAnimation(
-        horizontalOffset:anim==true? -300:300,
+        horizontalOffset: anim == true ? -300 : 300,
         child: FadeInAnimation(
           child: Container(
             padding: const EdgeInsets.all(20),
@@ -45,6 +46,7 @@ class SignUpBuilder extends StatelessWidget {
             child: Column(
               children: [
                 InputText(
+                  checkEmail: true,
                   type: TextInputType.name,
                   hintText: '',
                   validator: LocaleKeys.Enter_your_Name.tr(),
@@ -53,14 +55,18 @@ class SignUpBuilder extends StatelessWidget {
                   labelText: LocaleKeys.name.tr(),
                 ),
                 InputText(
+                  checkEmail: false,
                   type: TextInputType.emailAddress,
                   hintText: '',
-                  validator: LocaleKeys.Enter_your_Email.tr(),
+                  validator: emailController.text.isEmpty
+                      ? LocaleKeys.Enter_your_Email.tr()
+                      : LocaleKeys.Enter_the_email_correctly.tr(),
                   icon: Icons.email,
                   controller: emailController,
                   labelText: LocaleKeys.email.tr(),
                 ),
                 InputText(
+                  checkEmail: true,
                   type: TextInputType.visiblePassword,
                   hintText: '',
                   validator: LocaleKeys.Enter_your_Password.tr(),

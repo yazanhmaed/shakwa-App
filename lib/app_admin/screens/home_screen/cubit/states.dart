@@ -5,8 +5,8 @@ class ComplaintsInitialState extends ComplaintsStates {}
 class ComplaintsLoadingState extends ComplaintsStates {}
 
 class ComplaintsSuccessState extends ComplaintsStates {}
+class ChangeDrawState extends ComplaintsStates {}
 
-class ComplaintsErrorState extends ComplaintsStates {}
 
 class ComplaintsUpdateSuccessState extends ComplaintsStates {}
 
@@ -19,9 +19,7 @@ class AddComplaintImagePicSuccessState extends ComplaintsStates {}
 
 class AddComplaintImagePicErrorState extends ComplaintsStates {}
 
-class RemoveComplaintImagePicSuccessState extends ComplaintsStates {}
 
-class RemoveComplaintImagePicErrorState extends ComplaintsStates {}
 
 class ComplaintsRemoveSuccessState extends ComplaintsStates {}
 

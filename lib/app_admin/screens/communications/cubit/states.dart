@@ -5,6 +5,7 @@ class CommunicationsInitialState extends CommunicationsStates {}
 class CommunicationsLoadingState extends CommunicationsStates {}
 
 class CommunicationsSuccessState extends CommunicationsStates {}
+class ChangeDrawState extends CommunicationsStates {}
 
 class CommunicationsErrorState extends CommunicationsStates {
   final String error;

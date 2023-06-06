@@ -6,27 +6,20 @@ class UserLoadingState extends UserStates {}
 
 class UserSuccessState extends UserStates {
   final String uId;
+  final String email;
 
-  UserSuccessState(this.uId);
+  UserSuccessState(this.uId, this.email);
 }
 
 class UserErrorState extends UserStates {}
 
-class CreateUserLoadingState extends UserStates {}
-
-class CreateUserSuccessState extends UserStates {}
-
 class CreateUserErrorState extends UserStates {}
-
-class GetUserLoadingState extends UserStates {}
 
 class GetUserSuccessState extends UserStates {
   final String name;
 
   GetUserSuccessState(this.name);
 }
-
-class GetUserErrorState extends UserStates {}
 
 class ChangeSuccessState extends UserStates {}
 
@@ -40,8 +33,6 @@ class PasswordResetErrorState extends UserStates {}
 
 class ChangeobscureTextSuccessState extends UserStates {}
 
-// class GetUserErrorState extends UserStates {}
-
 class AddUserLoadingState extends UserStates {}
 
 class AddUserSuccessState extends UserStates {}
@@ -52,15 +43,10 @@ class AddUserErrorState extends UserStates {
   AddUserErrorState(this.error);
 }
 
-class AddCreateUserLoadingState extends UserStates {}
-
 class AddCreateUserSuccessState extends UserStates {}
-
-class AddCreateUserErrorState extends UserStates {}
 
 class LogoutSuccessState extends UserStates {}
 
 class LogoutErrorState extends UserStates {}
 
 class ChangeDrawState extends UserStates {}
-class Change2DrawState extends UserStates {}

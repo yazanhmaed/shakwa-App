@@ -1,55 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pro_test/app_admin/screens/cybercrimes/cybercrimes_screen.dart';
-import 'package:pro_test/app_admin/screens/login_screen/cubit/cubit.dart';
-import 'package:pro_test/app_admin/screens/login_screen/cubit/states.dart';
-import 'package:pro_test/app_user/screens/login_screen/login_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pro_test/app_admin/screens/layout/cubit/cubit.dart';
+import 'package:pro_test/app_admin/screens/layout/cubit/states.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app_user/screens/home_screen/components.dart';
-import '../../../resources/cache_helper.dart';
+import '../../../app_user/screens/login_screen/login_screen.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
 import '../../../resources/string_manager.dart';
 import '../communications/communications_screen.dart';
+import '../cybercrimes/cybercrimes_screen.dart';
 import '../home_screen/home_screens.dart';
+import 'chart.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<String> dataName = [
-      'AntiCyberCrimesUnit',
-      'AmmanCity',
-      'ElectricPower',
-      'MinistryOfAgriculture',
-      'MinistryofCommunications',
-      'MinistryofEnvironment',
-      'Miyahuna',
-      'TrafficDepartment',
-    ];
     return BlocProvider(
-      create: (context) => UserCubit(),
-      child: BlocConsumer<UserCubit, UserStates>(
-        listener: (context, state) {
-          if (state is ComplainChangeSwitchState) {
-            CacheHelper.seveData(key: 'uIdA', value: state.uId).then((value) {
-              print(state.uId);
-              uIdA = CacheHelper.getData(key: 'uIdA');
-            });
-          }
-        },
+      create: (context) => LayoutCubit(),
+      child: BlocConsumer<LayoutCubit, ComplaintsStates>(
+        listener: (context, state) {},
         builder: (context, state) {
-          var cubit = UserCubit.get(context);
+          var cubit = LayoutCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: const Text(
                 AppString.barTitle,
                 style: TextStyle(fontFamily: 'HSNNaskh', fontSize: 35),
               ),
+              actions: [
+                IconButton(
+                    onPressed: () => navigateTo(context, ChartView()),
+                    icon: const FaIcon(
+                      FontAwesomeIcons.chartSimple,
+                      size: 30,
+                    ))
+              ],
               leading: IconButton(
-                  onPressed: () {
-                    navigateAndFinish(context, LoginScreen());
+                  onPressed: () async {
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+
+                    // Remove data for the 'counter' key.
+                    await prefs.remove('em').then((value) {
+                      admin = '';
+
+                      return navigateAndFinish(context, LoginScreen());
+                    });
                   },
                   icon: Icon(
                     Icons.logout,
@@ -65,7 +66,7 @@ class LayoutScreen extends StatelessWidget {
               child: GridView.builder(
                 padding: EdgeInsets.only(top: 20),
                 physics: const BouncingScrollPhysics(),
-                itemCount: dataName.length,
+                itemCount: cubit.dataName.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                 ),
@@ -73,19 +74,16 @@ class LayoutScreen extends StatelessWidget {
                   return GestureDetector(
                     onTap: () async {
                       if (index == 0) {
-                        uIdA = dataName[0];
+                        uIdA = cubit.dataName[0];
 
-                        print(dataName[index]);
                         await navigateTo(context, CyberCrimesScreen());
                       } else if (index == 4) {
-                        uIdA = dataName[4];
+                        uIdA = cubit.dataName[4];
 
-                        print(dataName[index]);
                         await navigateTo(context, CommunicationsScreen());
                       } else {
-                        uIdA = dataName[index];
+                        uIdA = cubit.dataName[index];
 
-                        print(dataName[index]);
                         await navigateTo(context, HomeScreens());
                       }
                     },

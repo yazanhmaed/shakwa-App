@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pro_test/resources/color_manager.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/contact%20numbers.dart';
 import 'package:pro_test/app_user/screens/login_screen/cubit/cubit.dart';
-import 'package:pro_test/app_user/screens/login_screen/cubit/states.dart';
+
 
 import '../../../resources/cache_helper.dart';
+import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
 import '../../../translations/locale_keys.g.dart';
+import '../follow_complaints/contact numbers.dart';
 import '../follow_complaints/follow_complaints.dart';
 import '../follow_complaints/previous_complaints.dart';
+import '../login_screen/cubit/states.dart';
 import '../login_screen/login_screen.dart';
 import 'drawer_screen.dart';
 
@@ -30,7 +31,6 @@ class MenuScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = UserCubit.get(context);
-          // var cubit2 = FollowComplaintsCubit.get(context);
 
           return Scaffold(
             backgroundColor: ColorManager.primary,
@@ -112,11 +112,8 @@ class MenuScreen extends StatelessWidget {
                         onPressed: () async {
                           cubit.changeDraw(dr: false, context: context);
                           navigateAndFinish(context, DrawerScreen());
-                          // await cubit.changeDraw(context);
-                          // // print(context.locale);
-                          // // FollowComplaintsCubit.get(context).n();
+                      
                         },
-                        // ignore: unrelated_type_equality_checks
                         child: Text(
                           'الانجليزية|En',
                           style: TextStyle(
@@ -125,13 +122,10 @@ class MenuScreen extends StatelessWidget {
                   if (draw == false)
                     TextButton(
                       onPressed: () async {
-                        // // ignore: unrelated_type_equality_checks
                         cubit.changeDraw(dr: true, context: context);
                         navigateAndFinish(context, DrawerScreen());
-                        // // print(context.locale);
-                        // // FollowComplaintsCubit.get(context).n();
+                       
                       },
-                      // ignore: unrelated_type_equality_checks
                       child: Text(
                         'Ar|العربية',
                         style: TextStyle(

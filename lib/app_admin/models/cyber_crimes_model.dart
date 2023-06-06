@@ -10,8 +10,11 @@ class CyberCrimesModel {
   String? link;
   String? state;
   String? token;
+  String? note;
   int? color;
+  int? rating;
   Timestamp? date;
+  Timestamp? timeSpent;
   CyberCrimesModel({
     this.id,
     this.id2,
@@ -22,8 +25,11 @@ class CyberCrimesModel {
     this.link,
     this.state,
     this.token,
+    this.note,
     this.color,
+    this.rating,
     this.date,
+    this.timeSpent,
   });
 
   CyberCrimesModel.fromJson(Map<String, dynamic> json) {
@@ -36,8 +42,11 @@ class CyberCrimesModel {
     link = json['link'];
     state = json['state'];
     token = json['token'];
+    note = json['note'];
     color = json['color'];
+    rating = json['rating'];
     date = json['date'];
+    timeSpent = json['timeSpent'];
   }
 
   Map<String, dynamic> toMap() {
@@ -51,8 +60,11 @@ class CyberCrimesModel {
       'link': link,
       'state': state,
       'token': token,
+      'note': note,
       'color': color,
+      'rating': rating,
       'date': date,
+      'timeSpent': timeSpent,
     };
   }
 }

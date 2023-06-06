@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pro_test/resources/components.dart';
-import 'package:pro_test/app_user/screens/password_reset/password_reset.dart';
+
 import 'package:text_divider/text_divider.dart';
 
+import '../../app_user/screens/password_reset/password_reset.dart';
 import '../../translations/locale_keys.g.dart';
 import '../color_manager.dart';
+import '../components.dart';
 import '../string_manager.dart';
 import '../styles_manager.dart';
 import 'button_custom.dart';
@@ -20,7 +21,9 @@ class LoginBuilder extends StatelessWidget {
     this.onPressed,
     required this.obscureText,
     this.onPressedobscureText,
-    this.onTap, required this.positive, required this.anim,
+    this.onTap,
+    required this.positive,
+    required this.anim,
   });
 
   final TextEditingController emailController;
@@ -38,7 +41,7 @@ class LoginBuilder extends StatelessWidget {
       position: positive,
       duration: const Duration(milliseconds: 1500),
       child: SlideAnimation(
-        horizontalOffset:anim==false? -300:300,
+        horizontalOffset: anim == false ? -300 : 300,
         child: FadeInAnimation(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,18 +58,22 @@ class LoginBuilder extends StatelessWidget {
                     InputText(
                       type: TextInputType.emailAddress,
                       hintText: '',
-                      validator: LocaleKeys.Enter_your_Email.tr(),
+                      validator: emailController.text.isEmpty
+                          ? LocaleKeys.Enter_your_Email.tr()
+                          : LocaleKeys.Enter_the_email_correctly.tr(),
                       icon: Icons.email,
                       controller: emailController,
                       labelText: LocaleKeys.email.tr(),
+                      checkEmail: false,
                     ),
                     InputText(
+                      checkEmail: true,
                       type: TextInputType.visiblePassword,
                       hintText: '',
                       validator: LocaleKeys.Enter_your_Password.tr(),
                       icon: Icons.password,
                       controller: passwordController,
-                      labelText:LocaleKeys.password.tr(),
+                      labelText: LocaleKeys.password.tr(),
                       obscureText: obscureText,
                       suffixIcon: IconButton(
                           onPressed: onPressedobscureText,
@@ -113,7 +120,7 @@ class LoginBuilder extends StatelessWidget {
                     ),
                     TextDivider.horizontal(
                         color: ColorManager.amber.withOpacity(0.6),
-                        text:  Text(LocaleKeys.or.tr()),
+                        text: Text(LocaleKeys.or.tr()),
                         thickness: 5),
                     SizedBox(
                       height: 5,

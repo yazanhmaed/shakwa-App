@@ -32,8 +32,10 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String social,
     required String state,
     required String token,
+    required String competent,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
     required String authority,
   }) {
     int rs = r.nextInt(999999);
@@ -54,14 +56,15 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         description: description,
         image: image,
         link: link,
+        competent: competent,
         social: social,
         state: state,
         token: token,
         color: color,
         date: date,
+        timeSpent: timeSpent,
       );
 
-      //emit(AddCyberCrimesSuccessState());
     }).catchError((onError) {
       emit(AddCyberCrimesErrorState(onError));
     });
@@ -76,9 +79,11 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String social,
     required String state,
     required String token,
+    required String competent,
     required String authority,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
   }) {
     int rs = r.nextInt(999999);
     emit(AddCyberCrimesLoading2State());
@@ -92,8 +97,13 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
       social: social,
       state: state,
       token: token,
+      competent: competent,
       color: color,
       date: date,
+      timeSpent: timeSpent,
+      rating: null,
+      note: ' ',
+      
     );
     FirebaseFirestore.instance
         .collection('Users/')
@@ -111,11 +121,12 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         social: social,
         state: 'Waiting',
         token: token,
+        competent: competent,
         authority: authority,
         color: 1,
         date: Timestamp.now(),
+        timeSpent: Timestamp.now(),
       );
-      // emit(AddCyberCrimesSuccess2State());
     }).catchError((onError) {
       emit(AddCyberCrimesError2State());
     });
@@ -131,9 +142,11 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String social,
     required String state,
     required String token,
+    required String competent,
     required String authority,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
   }) {
     emit(AddCyberCrimesLoadingState());
 
@@ -154,12 +167,12 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
           social: social,
           state: state,
           token: token,
+          competent: competent,
           authority: authority,
           color: color,
+          timeSpent: timeSpent,
           date: date);
-      // emit(AddCyberCrimesSuccessState());
     }).catchError((onError) {
-      // print(onError);
       emit(AddCyberCrimesErrorState(onError));
     });
   }
@@ -174,9 +187,11 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String social,
     required String state,
     required String token,
+    required String competent,
     required String authority,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
   }) {
     emit(AddCyberCrimesLoading2State());
     AddCyberCrimesModel model = AddCyberCrimesModel(
@@ -189,8 +204,12 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
       social: social,
       state: state,
       token: token,
+      competent: competent,
       color: color,
       date: date,
+      timeSpent: timeSpent,
+      rating: null,
+      note: ' ',
     );
     FirebaseFirestore.instance
         .collection('competentAuthority/')
@@ -210,6 +229,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
     required String link,
     required String social,
     required String token,
+    required String competent,
     required String authority,
   }) {
     emit(AddCyberCrimesImagePicLoadingState());
@@ -221,6 +241,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         complaint(
+          competent: competent,
             userid: userid,
             type: type,
             description: description,
@@ -231,6 +252,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
             token: token,
             color: 1,
             date: Timestamp.now(),
+            timeSpent: Timestamp.now(),
             authority: authority);
       }).catchError((onError) {
         emit(AddComplainImagePicErrorState());
@@ -240,6 +262,7 @@ class AddCyberCrimesCubit extends Cubit<AddCyberCrimesStates> {
       emit(AddComplainImagePicErrorState());
     });
   }
+
 
   File? storieImage;
   var picker = ImagePicker();

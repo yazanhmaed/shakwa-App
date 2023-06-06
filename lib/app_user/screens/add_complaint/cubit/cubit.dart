@@ -9,13 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pro_test/resources/color_manager.dart';
 import 'package:pro_test/app_user/screens/add_complaint/cubit/states.dart';
-import 'package:pro_test/app_user/screens/drawer_screen/drawer_screen.dart';
-import 'package:pro_test/translations/locale_keys.g.dart';
 
+import '../../../../resources/color_manager.dart';
 import '../../../../resources/components.dart';
+import '../../../../translations/locale_keys.g.dart';
 import '../../../models/add_complaint_model.dart';
+import '../../drawer_screen/drawer_screen.dart';
 
 class AddComplaintCubit extends Cubit<AddComplaintStates> {
   AddComplaintCubit() : super(AddComplaintInitialState());
@@ -36,8 +36,10 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String longitude,
     required String state,
     required String token,
+    required String competent,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
     required String authority,
   }) {
     int rs = r.nextInt(999999);
@@ -61,11 +63,12 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         longitude: longitude,
         state: state,
         token: token,
+        competent: competent,
         color: color,
         date: date,
+        timeSpent: timeSpent,
       );
 
-      //   emit(AddComplaintSuccessState());
     }).catchError((onError) {
       emit(AddComplaintErrorState(onError));
     });
@@ -80,9 +83,11 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String longitude,
     required String state,
     required String token,
+    required String competent,
     required String authority,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
   }) {
     int rs = r.nextInt(999999);
     emit(AddComplaintLoading2State());
@@ -96,8 +101,12 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
       longitude: longitude,
       state: state,
       token: token,
+      competent: competent,
       color: color,
       date: date,
+      timeSpent: timeSpent,
+      rating: null,
+      note: ' ',
     );
     FirebaseFirestore.instance
         .collection('Users/')
@@ -111,6 +120,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         type: type,
         description: description,
         image: image,
+        competent:competent,
         latitude: latitude,
         longitude: longitude,
         state: 'Waiting',
@@ -118,8 +128,8 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
         authority: authority,
         color: 1,
         date: Timestamp.now(),
+        timeSpent: Timestamp.now(),
       );
-      // emit(AddComplaintSuccess2State());
     }).catchError((onError) {
       emit(AddComplaintError2State());
     });
@@ -135,9 +145,11 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String longitude,
     required String state,
     required String token,
+    required String competent,
     required String authority,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
   }) {
     emit(AddComplaintLoadingState());
 
@@ -154,14 +166,15 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
           type: type,
           description: description,
           image: image,
+          competent: competent,
           latitude: latitude,
           longitude: longitude,
           state: state,
           token: token,
           authority: authority,
           color: color,
+          timeSpent: timeSpent,
           date: date);
-      // emit(AddComplaintSuccessState());
     }).catchError((onError) {
       print(onError);
       emit(AddComplaintErrorState(onError));
@@ -178,9 +191,11 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String longitude,
     required String state,
     required String token,
+    required String competent,
     required String authority,
     required int color,
     required Timestamp date,
+    required Timestamp timeSpent,
   }) {
     emit(AddComplaintLoading2State());
     AddComplaintModel model = AddComplaintModel(
@@ -193,8 +208,12 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
       longitude: longitude,
       state: state,
       token: token,
+      competent: competent,
       color: color,
+      timeSpent: timeSpent,
       date: date,
+      rating: null,
+      note: ' ',
     );
     FirebaseFirestore.instance
         .collection('competentAuthority/')
@@ -214,6 +233,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     required String latitude,
     required String longitude,
     required String token,
+    required String competent,
     required String authority,
   }) {
     emit(AddComplaintImagePicLoadingState());
@@ -234,7 +254,9 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
             state: 'Waiting',
             token: token,
             color: 1,
+            competent: competent,
             date: Timestamp.now(),
+            timeSpent: Timestamp.now(),
             authority: authority);
       }).catchError((onError) {
         emit(AddComplainImagePicErrorState());
@@ -298,11 +320,7 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
+    
         emit(AddComplainGeolocatorState());
         return Future.error('Location permissions are denied');
       }
@@ -327,7 +345,6 @@ class AddComplaintCubit extends Cubit<AddComplaintStates> {
   String longitude = "";
   Future<void> getGeo() async {
     position = await Geolocator.getCurrentPosition().whenComplete(() {
-      // setState(() {});
       emit(GetComplainGeolocatorState());
     });
     latitude = "${position?.latitude}";

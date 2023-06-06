@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:loading_animations/loading_animations.dart';
-import 'package:pro_test/app_user/screens/email_verification/email_verification.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/cubit/cubit.dart';
-import 'package:pro_test/app_user/screens/follow_complaints/cubit/states.dart';
+
 
 import '../../../resources/color_manager.dart';
 import '../../../resources/components.dart';
@@ -14,6 +12,9 @@ import '../../../resources/string_manager.dart';
 import '../add_complaint/add_complaint.dart';
 import '../add_cybercrimes/add_cyber_crimes.dart';
 import '../communications/add_communications.dart';
+import '../email_verification/email_verification.dart';
+import '../follow_complaints/cubit/cubit.dart';
+import '../follow_complaints/cubit/states.dart';
 import '../support/support.dart';
 import 'components.dart';
 
@@ -36,10 +37,9 @@ class HomeScreen extends StatelessWidget {
                 leading: IconButton(
                     onPressed: () {
                       if (ZoomDrawer.of(context)!.isOpen()) {
-                        //  ZoomDrawer.of(context)!.close();
+                         ZoomDrawer.of(context)!.close();
                       } else {
                         ZoomDrawer.of(context)!.open();
-                        //print(ZoomDrawer.of(context)!.isOpen());
                       }
                     },
                     icon: Icon(Icons.menu)),

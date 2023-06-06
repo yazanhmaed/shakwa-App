@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pro_test/app_admin/screens/home_screen/cubit/states.dart';
@@ -14,17 +16,24 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
   ComplaintsCubit() : super(ComplaintsInitialState());
 
   static ComplaintsCubit get(context) => BlocProvider.of(context);
+  TextEditingController noteController = TextEditingController();
 
   List<ComplaintsModel> complaintsModel = [];
   List<ComplaintsModel> waiting = [];
   List<ComplaintsModel> prosses = [];
   List<ComplaintsModel> success = [];
   List<DateTime> dateTime = [];
-
+  List? list;
   var w = 0.0;
   var p = 0.0;
   var s = 0.0;
 
+  var rate = 0.0;
+  var s1 = 0;
+  var s2 = 0;
+  var s3 = 0;
+  var s4 = 0;
+  var s5 = 0;
   Future getComplaints() async {
     complaintsModel = [];
     dateTime = [];
@@ -41,15 +50,22 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
         .then((value) {
       for (var e in value.docs) {
         complaintsModel.add(ComplaintsModel.fromJson(e.data()));
-        //  print(e.data());
       }
       for (var element in complaintsModel) {
         dateTime.add(element.date!.toDate());
-      }
-     
-      //print(dateTime2);
 
-      for (var element in complaintsModel) {
+        if (element.rating != null && element.rating! == 1) {
+          s1 = s1 + 1;
+        } else if (element.rating != null && element.rating! == 2) {
+          s2 = s2 + 1;
+        } else if (element.rating != null && element.rating! == 3) {
+          s3 = s3 + 1;
+        } else if (element.rating != null && element.rating! == 4) {
+          s4 = s4 + 1;
+        } else if (element.rating != null && element.rating! == 5) {
+          s5 = s5 + 1;
+        }
+
         if (element.state == 'Waiting') {
           waiting.add(element);
         } else if (element.state == 'Prosses') {
@@ -61,12 +77,24 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
         p = (prosses.length / complaintsModel.length) * 100;
         s = (success.length / complaintsModel.length) * 100;
       }
+      var r = (s5 * 5) + (s4 * 4) + (s3 * 3) + (s2 * 2) + (s1 * 1);
+
+      if (s1 != 0 || s2 != 0 || s3 != 0 || s4 != 0 || s5 != 0) {
+        rate = r / (s5 + s4 + s3 + s2 + s1);
+      }
 
       emit(ComplaintsSuccessState());
     }).catchError((onError) {
       print(onError);
-      //emit(ComplaintsErrorState());
     });
+  }
+
+  Future changeDraw({required bool dr, required BuildContext context}) async {
+    draw = dr;
+    draw == false
+        ? await context.setLocale(Locale('en'))
+        : await context.setLocale(Locale('ar'));
+    emit(ChangeDrawState());
   }
 
   void updateData({
@@ -107,16 +135,16 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
                 : 'Success',
       }).then((value) {
         sendNotification(
-            id2: id2,
-            token: token,
-            desc: description,
-            state: state == 'Waiting'
-                ? 'Prosses'
-                : state == 'Prosses'
-                    ? 'Image'
-                    : 'Success');
+          id2: id2,
+          token: token,
+          desc: description,
+          state: color == 1
+              ? 'Process'
+              : color == 2
+                  ? 'Image'
+                  : 'Completed',
+        );
 
-        //emit(ComplaintsUpdateSuccessState());
       });
       emit(ComplaintsUpdateSuccessState());
     }).catchError((onError) {
@@ -129,7 +157,7 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
   var picker = ImagePicker();
   Future<void> getImage() async {
     final pickerFile = await picker.pickImage(source: ImageSource.camera);
-      emit(AddComplaintImagelOADINGState());
+    emit(AddComplaintImagelOADINGState());
     if (pickerFile != null) {
       storieImage = File(pickerFile.path);
 
@@ -138,6 +166,46 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
       print('No Image ');
       emit(AddComplaintImagePicErrorState());
     }
+  }
+
+  void updateNote({
+    required String id2,
+    required String id,
+    required String note,
+    required String token,
+  }) {
+    FirebaseFirestore.instance
+        .collection('competentAuthority')
+        .doc(uIdA)
+        .collection('complaint')
+        .doc(id2)
+        .update({
+      'note': note,
+    }).then((value) {
+      emit(ComplaintsUpdateSuccessState());
+    }).catchError((onError) {
+      print(onError);
+      emit(ComplaintsUpdateErrorState());
+    }).then((value) {
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(id)
+          .collection('complaint')
+          .doc(id2)
+          .update({
+        'note': note,
+      }).then((value) {
+        sendNotification(
+          id2: id2,
+          token: token,
+          desc: '',
+          state: 'Add Note',
+        );
+      });
+    }).catchError((onError) {
+      print(onError);
+      emit(ComplaintsUpdateErrorState());
+    });
   }
 
   void updateImage({
@@ -161,20 +229,31 @@ class ComplaintsCubit extends Cubit<ComplaintsStates> {
                     .doc(uIdA)
                     .collection('complaint')
                     .doc(id2)
-                    .update({'image': val, 'color': 3}).then((value) {
-                  // getComplaints();
+                    .update({
+                  'image': val,
+                  'color': 3,
+                  'date': Timestamp.now(),
+                }).then((value) {
                   FirebaseFirestore.instance
                       .collection('Users/')
                       .doc(id)
                       .collection('complaint')
                       .doc(id2)
-                      .update({'image': val, 'color': 3}).then((value) {
+                      .update({
+                    'image': val,
+                    'color': 3,
+                    'date': Timestamp.now(),
+                  }).then((value) {
                     sendNotification(
-                        id2: id2,
-                        token: token,
-                        desc: description,
-                        state: state == 'Waiting' ? 'Prosses' : 'Image');
-                    emit(ComplaintsUpdateSuccessState());
+                      id2: id2,
+                      token: token,
+                      desc: description,
+                      state: color == 1
+                          ? 'Prosses'
+                          : color == 2
+                              ? 'Image'
+                              : 'Completed',
+                    );
                   });
                   emit(ComplaintsUpdateSuccessState());
                 }).catchError((onError) {

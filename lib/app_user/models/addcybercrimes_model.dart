@@ -6,24 +6,32 @@ class AddCyberCrimesModel {
   String? type;
   String? social;
   String? description;
+  String? competent;
   String? image;
   String? link;
   String? state;
   String? token;
+  String? note;
   int? color;
+  int? rating;
   Timestamp? date;
+  Timestamp? timeSpent;
   AddCyberCrimesModel({
     this.id,
     this.id2,
     this.type,
     this.social,
     this.description,
+    this.competent,
     this.image,
     this.link,
     this.state,
+    this.note,
     this.token,
     this.color,
+    this.rating,
     this.date,
+    this.timeSpent,
   });
 
   AddCyberCrimesModel.fromJson(Map<String, dynamic> json) {
@@ -32,12 +40,16 @@ class AddCyberCrimesModel {
     type = json['type'];
     social = json['social'];
     description = json['description'];
+    competent = json['competent'];
     image = json['image'];
     link = json['link'];
     state = json['state'];
     token = json['token'];
+    note = json['note'];
     color = json['color'];
+    rating = json['rating'];
     date = json['date'];
+    timeSpent = json['timeSpent'];
   }
 
   Map<String, dynamic> toMap() {
@@ -48,11 +60,15 @@ class AddCyberCrimesModel {
       'social': social,
       'description': description,
       'image': image,
+      'competent': competent,
       'link': link,
       'state': state,
       'token': token,
+      'note': note,
       'color': color,
+      'rating': rating,
       'date': date,
+      'timeSpent': timeSpent,
     };
   }
 }

@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pro_test/app_user/screens/support/cubit/states.dart';
-import 'package:pro_test/resources/components.dart';
 
+
+import '../../../../resources/components.dart';
 import '../../../../resources/widgets/video_player.dart';
 import '../../../../translations/locale_keys.g.dart';
 import '../../../models/support_model.dart';
+import '../../login_screen/support/cubit/states.dart';
 
 class SupportCubit extends Cubit<SupportStates> {
   SupportCubit() : super(SupportInitialState());
@@ -73,6 +74,7 @@ class SupportCubit extends Cubit<SupportStates> {
     required String text,
     required BuildContext context,
   }) {
+    
     if (text == LocaleKeys.How_to_send_a_complaint.tr()) {
       s.add(SupportModel(
           widget: Column(

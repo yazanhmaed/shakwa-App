@@ -12,6 +12,7 @@ class AddSupportSuccessState extends SupportStates {
   AddSupportSuccessState(this.text);
 }
 
+class SendSupportLoadingState extends SupportStates {}
 class SendSupportSuccessState extends SupportStates {}
 
 class SupportErrorState extends SupportStates {}

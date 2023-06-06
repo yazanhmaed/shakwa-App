@@ -3,10 +3,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pro_test/app_admin/screens/home_screen/home_screens.dart';
+import 'package:pro_test/app_user/screens/login_screen/support/support.dart';
 
-import 'package:pro_test/app_user/screens/drawer_screen/drawer_screen.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../../../app_admin/screens/communications/communications_screen.dart';
+import '../../../app_admin/screens/cybercrimes/cybercrimes_screen.dart';
 import '../../../app_admin/screens/layout/layout_screen.dart';
 import '../../../resources/cache_helper.dart';
 import '../../../resources/color_manager.dart';
@@ -16,6 +19,7 @@ import '../../../resources/string_manager.dart';
 import '../../../resources/widgets/login.dart';
 import '../../../resources/widgets/signup.dart';
 import '../../../translations/locale_keys.g.dart';
+import '../drawer_screen/drawer_screen.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -40,8 +44,6 @@ class LoginScreen extends StatelessWidget {
                   textColor: Colors.white,
                   fontSize: 16.0);
             else
-              // if (state.error.toString() ==
-              //     '[firebase_auth/email-already-in-use] The email address is already in use by another account.')
               Fluttertoast.showToast(
                   msg: LocaleKeys.Email_already_exists.tr(),
                   toastLength: Toast.LENGTH_SHORT,
@@ -62,11 +64,77 @@ class LoginScreen extends StatelessWidget {
                 fontSize: 16.0);
           }
           if (state is UserSuccessState) {
-            uId = state.uId;
-            CacheHelper.seveData(key: 'uId', value: state.uId).then((value) {
-              print(state.uId);
-              navigateAndFinish(context, DrawerScreen());
-            });
+            if (state.email == 'anticybercrimesunit@shakwa.com') {
+              CacheHelper.seveData(key: 'uIdA', value: 'AntiCyberCrimesUnit')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+                print(00000);
+                navigateTo(context, CyberCrimesScreen());
+              });
+            } else if (state.email == 'ministryofcommunications@shakwa.com') {
+              CacheHelper.seveData(
+                      key: 'uIdA', value: 'MinistryofCommunications')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+
+                navigateTo(context, CommunicationsScreen());
+              });
+            } else if (state.email == 'ammancity@shakwa.com') {
+              CacheHelper.seveData(key: 'uIdA', value: 'AmmanCity')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+
+                navigateTo(context, HomeScreens());
+              });
+            } else if (state.email == 'ministryofagriculture@shakwa.com') {
+              CacheHelper.seveData(key: 'uIdA', value: 'MinistryOfAgriculture')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+
+                navigateTo(context, HomeScreens());
+              });
+            } else if (state.email == 'electricpower@shakwa.com') {
+              CacheHelper.seveData(key: 'uIdA', value: 'ElectricPower')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+
+                navigateTo(context, HomeScreens());
+              });
+            } else if (state.email == 'ministryofenvironment@shakwa.com') {
+              CacheHelper.seveData(key: 'uIdA', value: 'MinistryofEnvironment')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+
+                navigateTo(context, HomeScreens());
+              });
+            } else if (state.email == 'trafficdepartment@shakwa.com') {
+              CacheHelper.seveData(key: 'uIdA', value: 'TrafficDepartment')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+
+                navigateTo(context, HomeScreens());
+              });
+            } else if (state.email == 'miyahuna@shakwa.com') {
+              CacheHelper.seveData(key: 'uIdA', value: 'Miyahuna')
+                  .then((value) {
+                uIdA = CacheHelper.getData(key: 'uIdA');
+
+                navigateTo(context, HomeScreens());
+              });
+            } else if (state.email == 'admin@shakwa.com') {
+              CacheHelper.seveData(key: 'em', value: 'admin@shakwa.com')
+                  .then((value) {
+                admin = CacheHelper.getData(key: 'em');
+
+                navigateAndFinish(context, LayoutScreen());
+              });
+            } else {
+              uId = state.uId;
+              CacheHelper.seveData(key: 'uId', value: state.uId).then((value) {
+                print(state.uId);
+                navigateAndFinish(context, DrawerScreen());
+              });
+            }
           }
           if (state is AddCreateUserSuccessState) {
             UserCubit.get(context).positive = 0;
@@ -80,6 +148,43 @@ class LoginScreen extends StatelessWidget {
           });
 
           return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                  onPressed: () {
+                    navigateTo(context, SupportLoginScreen());
+                  },
+                  icon: Icon(
+                    Icons.support_agent,
+                    size: 35,
+                  )),
+              actions: [
+                if (draw == true)
+                  TextButton(
+                      onPressed: () async {
+                        cubit.changeDraw(dr: false, context: context);
+                        navigateAndFinish(context, LoginScreen());
+                      },
+                      child: Text(
+                        'الانجليزية|En',
+                        style: TextStyle(
+                            color: ColorManager.primary,
+                            fontWeight: FontWeight.bold),
+                      )),
+                if (draw == false)
+                  TextButton(
+                    onPressed: () async {
+                      cubit.changeDraw(dr: true, context: context);
+                      navigateAndFinish(context, LoginScreen());
+                    },
+                    child: Text(
+                      'Ar|العربية',
+                      style: TextStyle(
+                          color: ColorManager.primary,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+              ],
+            ),
             body: Container(
               height: double.infinity,
               decoration: BoxDecoration(
@@ -139,18 +244,10 @@ class LoginScreen extends StatelessWidget {
                                 passwordController: cubit.passwordController,
                                 onPressed: () async {
                                   if (key.currentState!.validate()) {
-                                    if (cubit.emailController.text ==
-                                            'admin@gmail.com' &&
-                                        cubit.passwordController.text ==
-                                            '0000') {
-                                      navigateAndFinish(
-                                          context, LayoutScreen());
-                                    } else {
-                                      cubit.userLogin(
-                                          email: cubit.emailController.text,
-                                          password:
-                                              cubit.passwordController.text);
-                                    }
+                                    cubit.userLogin(
+                                        email: cubit.emailController.text,
+                                        password:
+                                            cubit.passwordController.text);
                                   }
                                 },
                               )
@@ -173,6 +270,7 @@ class LoginScreen extends StatelessWidget {
                                     );
                                   }
                                 }),
+                             
                       ],
                     ),
                   )),

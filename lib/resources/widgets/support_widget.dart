@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pro_test/resources/components.dart';
 
 class BubbleChat extends StatelessWidget {
   final double bubbleRadius;

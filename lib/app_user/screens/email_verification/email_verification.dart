@@ -3,17 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pro_test/resources/color_manager.dart';
-import 'package:pro_test/resources/components.dart';
-import 'package:pro_test/resources/string_manager.dart';
-import 'package:pro_test/app_user/screens/drawer_screen/drawer_screen.dart';
-import 'package:pro_test/app_user/screens/login_screen/cubit/cubit.dart';
 import 'package:pro_test/app_user/screens/login_screen/cubit/states.dart';
-import 'package:pro_test/app_user/screens/login_screen/login_screen.dart';
+
 
 import '../../../resources/cache_helper.dart';
+import '../../../resources/color_manager.dart';
+import '../../../resources/components.dart';
+import '../../../resources/string_manager.dart';
 import '../../../resources/widgets/button_custom.dart';
 import '../../../translations/locale_keys.g.dart';
+import '../drawer_screen/drawer_screen.dart';
+import '../login_screen/cubit/cubit.dart';
+import '../login_screen/login_screen.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   const EmailVerificationScreen({super.key});
@@ -75,7 +76,6 @@ class EmailVerificationScreen extends StatelessWidget {
                         color: ColorManager.primary.withOpacity(0.8),
                       ),
                       child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             LocaleKeys.Please_verify_your_email.tr(),
@@ -98,15 +98,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                       });
                                 },
                               ),
-                              // ButtomCustom(
-                              //   text: LocaleKeys.ok.tr(),
-                              //   color: ColorManager.amber,
-                              //   onPressed: () {
-                              //     cubit.userLogin(
-                              //         email: cubit.emailController.text,
-                              //         password: cubit.passwordController.text);
-                              //   },
-                              // ),
+                             
                             ],
                           )
                         ],

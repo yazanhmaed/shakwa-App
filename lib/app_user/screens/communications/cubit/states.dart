@@ -24,7 +24,6 @@ class AddCommunicationsImagePicSuccessState extends AddCommunicationsStates {}
 
 class AddComplainImagePicErrorState extends AddCommunicationsStates {}
 
-class AddComplainGeolocatorState extends AddCommunicationsStates {}
 
 class AddComplainChangeSwitchState extends AddCommunicationsStates {}
 class AddComplainChangeSwitch2State extends AddCommunicationsStates {}
